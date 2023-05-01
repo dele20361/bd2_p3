@@ -15,7 +15,7 @@ h4 {
     font-weight: bold;
  }
 
-.container {
+.container { 
     padding: 20px;
     display: flex;
     justify-content: center;

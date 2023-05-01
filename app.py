@@ -123,7 +123,7 @@ def deleteMyFavorites():
         favoritesTitle = request.form['favoritesTitle']
         print(favoritesTitle)
         
-        # Eliminar relación
+        # Eliminar relación 
         appNeo.delete_Favorites_relationship(userID, favoritesTitle)
         return redirect(url_for('homepage'))
 
