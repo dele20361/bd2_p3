@@ -9,61 +9,1159 @@ class App:
         self.driver = GraphDatabase.driver(uri, auth=(user, password))
 
     def close(self):
-        # Don't forget to close the driver connection when you are finished with it
         self.driver.close()
 
-    def create_friendship(self, person1_name, person2_name):
+    # ------------------------------------------------------- START MOVIE ------------------------------------------------------- #
+
+    def delete_movie_by_property(self, property_key, property_value):
+        '''
+            Eliminar una película dada una key.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
         with self.driver.session(database="neo4j") as session:
-            # Write transactions allow the driver to handle retries and transient errors
-            result = session.execute_write(
-                self._create_and_return_friendship, person1_name, person2_name)
-            for record in result:
-                print("Created friendship between: {p1}, {p2}"
-                      .format(p1=record['p1'], p2=record['p2']))
+            query = (
+                "MATCH (m:Movie) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "DELETE m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return result
+    
+    def find_movie_by_property(self, property_key, property_value):
+        '''
+            Buscar una película dada una key.
 
-    @staticmethod
-    def _create_and_return_friendship(tx, person1_name, person2_name):
-        # To learn more about the Cypher syntax, see https://neo4j.com/docs/cypher-manual/current/
-        # The Reference Card is also a good resource for keywords https://neo4j.com/docs/cypher-refcard/current/
-        query = (
-            "CREATE (p1:Person { name: $person1_name }) "
-            "CREATE (p2:Person { name: $person2_name }) "
-            "CREATE (p1)-[:KNOWS]->(p2) "
-            "RETURN p1, p2"
-        )
-        result = tx.run(query, person1_name=person1_name, person2_name=person2_name)
-        try:
-            return [{"p1": record["p1"]["name"], "p2": record["p2"]["name"]}
-                    for record in result]
-        # Capture any errors along with the query and data for traceability
-        except Neo4jError as exception:
-            logging.error("{query} raised an error: \n {exception}".format(
-                query=query, exception=exception))
-            raise
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos.
+            - property_value: Valor de la propiedad que filtrará los nodos.
 
-    def find_person(self, person_name):
+            Returns
+            -------
+            Validación.
+
+        '''
         with self.driver.session(database="neo4j") as session:
-            result = session.execute_read(self._find_and_return_person, person_name)
-            for record in result:
-                print("Found person: {record}".format(record=record))
+            query = (
+                "MATCH (m:Movie) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "RETURN m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record['m'] for record in result]
+    
+    def find_movies(self):
+        '''
+            Buscar todas las películas.
 
-    @staticmethod
-    def _find_and_return_person(tx, person_name):
-        query = (
-            "MATCH (p:Person) "
-            "WHERE p.name = $person_name "
-            "RETURN p.name AS name"
-        )
-        result = tx.run(query, person_name=person_name)
-        return [record["name"] for record in result]
+            Returns
+            -------
+            Validación.
 
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:Movie) "
+                "RETURN m"
+            )
+            result = session.run(query)
+            return [record['m'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+    
+    # ------------------------------------------------------- START ACTOR ------------------------------------------------------- #
+
+    def delete_actor_by_property(self, property_key, property_value):
+        '''
+            Eliminar una actor dada una key.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:actors) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "DELETE m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return result
+    
+    def find_actor_by_property(self, property_key, property_value):
+        '''
+            Buscar una actor dada una key.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos.
+            - property_value: Valor de la propiedad que filtrará los nodos.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:actors) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "RETURN m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["m"] for record in result]
+
+    def find_actors(self):
+        '''
+            Buscar todos los actores.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:actors) "
+                "RETURN m"
+            )
+            result = session.run(query)
+            return [record['m'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+    
+    # ------------------------------------------------------- START STAFF ------------------------------------------------------- #
+
+    def delete_staff_by_property(self, property_key, property_value):
+        '''
+            Eliminar un staff dada una key.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:staff) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "DELETE m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return result
+    
+    def find_staff_by_property(self, property_key, property_value):
+        '''
+            Buscar un staff dada una key.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos.
+            - property_value: Valor de la propiedad que filtrará los nodos.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:staff) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "RETURN m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["m"] for record in result]
+
+    def find_staff(self):
+        '''
+            Buscar todos los nodos staff.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:staff) "
+                "RETURN m"
+            )
+            result = session.run(query)
+            return [record['m'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+    
+    # -------------------------------------------------------  START USER ------------------------------------------------------- #
+
+    def delete_user_by_property(self, property_key, property_value):
+        '''
+            Eliminar un user dada una key.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:user) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "DELETE m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return result
+    
+    def find_user_by_property(self, property_key, property_value):
+        '''
+            Buscar un user dada una key.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos.
+            - property_value: Valor de la propiedad que filtrará los nodos.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:user) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "RETURN m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["m"] for record in result]
+
+    def find_users(self):
+        '''
+            Buscar todos los nodos staff.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:user) "
+                "RETURN m"
+            )
+            result = session.run(query)
+            return [record['m'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+    
+    # ----------------------------------------------------- START PLATFORM ------------------------------------------------------ #
+
+    def delete_platform_by_property(self, property_key, property_value):
+        '''
+            Eliminar un platform dada una key.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:platform) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "DELETE m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return result
+    
+    def find_platform_by_property(self, property_key, property_value):
+        '''
+            Buscar un platform dada una key.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos.
+            - property_value: Valor de la propiedad que filtrará los nodos.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:platform) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "RETURN m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["m"] for record in result]
+
+    def find_platform(self):
+        '''
+            Buscar todos los nodos platform.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:platform) "
+                "RETURN m"
+            )
+            result = session.run(query)
+            return [record['m'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+    
+    # ------------------------------------------------------ START MyList ------------------------------------------------------- #
+
+    def delete_mylist_relationship(self, user_id, movie_id):
+        '''
+            Eliminar relación MyList entre user y movie.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user {id: $user_id})-[r:MyList]->(m:Movie {id: $movie_id}) "
+                "DELETE r"
+            )
+            session.run(query, user_id=user_id, movie_id=movie_id)
+
+    
+    def find_mylist_by_relationship_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la relación.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:MyList]->(m:Movie) "
+                "WHERE r." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_mylist_by_movie_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la película.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:MyList]->(m:Movie) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_mylist_by_user_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad del usuario.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:MyList]->(m:Movie) "
+                "WHERE u." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+
+    def find_myList(self):
+        '''
+            Buscar relaciones "My List".
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:MyList]->(m:Movie)  "
+                "RETURN r"
+            )
+            result = session.run(query)
+            return [record['r'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+
+    # ----------------------------------------------------- START Favorites ----------------------------------------------------- #
+
+    def delete_Favorites_relationship(self, user_id, movie_id):
+        '''
+            Eliminar relación Favorites entre user y movie.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user {id: $user_id})-[r:Favorites]->(m:Movie {id: $movie_id}) "
+                "DELETE r"
+            )
+            session.run(query, user_id=user_id, movie_id=movie_id)
+
+    
+    def find_Favorites_by_relationship_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la relación.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Favorites]->(m:Movie) "
+                "WHERE r." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Favorites_by_movie_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la película.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Favorites]->(m:Movie) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Favorites_by_user_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad del usuario.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Favorites]->(m:Movie) "
+                "WHERE u." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+
+    def find_Favorites(self):
+        '''
+            Buscar relaciones "Favorites".
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Favorites]->(m:Movie)  "
+                "RETURN r"
+            )
+            result = session.run(query)
+            return [record['r'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+
+    # ----------------------------------------------------- START Watched ----------------------------------------------------- #
+
+    def delete_Watched_relationship(self, user_id, movie_id):
+        '''
+            Eliminar relación Watched entre user y movie.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user {id: $user_id})-[r:Watched]->(m:Movie {id: $movie_id}) "
+                "DELETE r"
+            )
+            session.run(query, user_id=user_id, movie_id=movie_id)
+
+    
+    def find_Watched_by_relationship_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la relación.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Watched]->(m:Movie) "
+                "WHERE r." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Watched_by_movie_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la película.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Watched]->(m:Movie) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Watched_by_user_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad del usuario.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Watched]->(m:Movie) "
+                "WHERE u." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+
+    def find_Watched(self):
+        '''
+            Buscar relaciones "Watched".
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Watched]->(m:Movie)  "
+                "RETURN r"
+            )
+            result = session.run(query)
+            return [record['r'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+
+    # ----------------------------------------------------- START Rating ----------------------------------------------------- #
+
+    def delete_Rating_relationship(self, user_id, movie_id):
+        '''
+            Eliminar relación Rating entre user y movie.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user {id: $user_id})-[r:Rating]->(m:Movie {id: $movie_id}) "
+                "DELETE r"
+            )
+            session.run(query, user_id=user_id, movie_id=movie_id)
+
+    
+    def find_Rating_by_relationship_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la relación.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Rating]->(m:Movie) "
+                "WHERE r." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Rating_by_movie_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la película.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Rating]->(m:Movie) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Rating_by_user_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad del usuario.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Rating]->(m:Movie) "
+                "WHERE u." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+
+    def find_Rating(self):
+        '''
+            Buscar relaciones "Rating".
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Rating]->(m:Movie)  "
+                "RETURN r"
+            )
+            result = session.run(query)
+            return [record['r'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+
+    # ----------------------------------------------------- START Available_In ----------------------------------------------------- #
+
+    def delete_Available_In_relationship(self, movie_id, platform_id):
+        '''
+            Eliminar relación Available_In entre movie y platform.
+
+            Parámetros
+            ----------
+            - movie_id: Id de película
+            - platform_id: Id de plataforma.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:Movie {id: $movie_id})-[r:Available_In]->(p:platform {id: $platform_id}) "
+                "DELETE r"
+            )
+            session.run(query, movie_id=movie_id, platform_id=platform_id)
+
+    
+    def find_Available_In_by_relationship_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la relación.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:Movie)-[r:Available_In]->(p:platform) "
+                "WHERE r." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Available_In_by_movie_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la película.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:Movie)-[r:Available_In]->(p:platform) "
+                "WHERE m." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Available_In_by_platform_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad del usuario.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:Movie)-[r:Available_In]->(p:platform) "
+                "WHERE p." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+
+    def find_Available_In(self):
+        '''
+            Buscar relaciones "Available_In".
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (m:Movie)-[r:Available_In]->(p:platform) "
+                "RETURN r"
+            )
+            result = session.run(query)
+            return [record['r'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+
+    # ----------------------------------------------------- START Subscribed ----------------------------------------------------- #
+
+    def delete_Subscribed_relationship(self, user_id, platform_id):
+        '''
+            Eliminar relación Subscribed entre user y platform.
+
+            Parámetros
+            ----------
+            - user_id: Id del user.
+            - platform_id: Id de la plataforma.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user {id: $user_id})-[r:Subscribed]->(p:platform {id: $platform_id}) "
+                "DELETE r"
+            )
+            session.run(query, user_id=user_id, platform_id=platform_id)
+
+    
+    def find_Subscribed_by_relationship_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la relación.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Subscribed]->(p:platform) "
+                "WHERE r." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Subscribed_by_platform_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la película.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Subscribed]->(p:platform) "
+                "WHERE p." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Subscribed_by_user_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad del usuario.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Subscribed]->(p:platform) "
+                "WHERE u." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+
+    def find_Subscribed(self):
+        '''
+            Buscar relaciones "Subscribed".
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Subscribed]->(p:platform)  "
+                "RETURN r"
+            )
+            result = session.run(query)
+            return [record['r'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+
+    # ----------------------------------------------------- START Acted_in ------------------------------------------------------ #
+
+    def delete_Acted_in_relationship(self, user_id, platform_id):
+        '''
+            Eliminar relación Acted_in entre actor y movie.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user {id: $user_id})-[r:Acted_in]->(p:platform {id: $platform_id}) "
+                "DELETE r"
+            )
+            session.run(query, user_id=user_id, platform_id=platform_id)
+
+    
+    def find_Acted_in_by_relationship_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la relación.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Acted_in]->(p:platform) "
+                "WHERE r." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Acted_in_by_platform_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad de la película.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Acted_in]->(p:platform) "
+                "WHERE p." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+    
+    def find_Acted_in_by_user_property(self, property_key, property_value):
+        '''
+            Obtener información de la relación según propiedad del usuario.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Acted_in]->(p:platform) "
+                "WHERE u." + property_key + " = $" + property_key + " "
+                "RETURN r"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["r"] for record in result]
+
+    def find_Acted_in(self):
+        '''
+            Buscar relaciones "Acted_in".
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Acted_in]->(p:platform)  "
+                "RETURN r"
+            )
+            result = session.run(query)
+            return [record['r'] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+
+    # -------------------------------------------------- START ejecución query -------------------------------------------------- #
+    def execute_query(self, query):
+        with self.driver.session(database="neo4j") as session:
+            result = session.run(query)
+            return result
 
 if __name__ == "__main__":
-    # Aura queries use an encrypted connection using the "neo4j+s" URI scheme
-    uri = "neo4j+s://<Bolt url for Neo4j Aura instance>"
-    user = "<Username for Neo4j Aura instance>"
-    password = "<Password for Neo4j Aura instance>"
+    uri = "neo4j+s://85d17210.databases.neo4j.io"
+    user = "neo4j"
+    password = "8_aBrbwezxsQxvPsIhl2UobQu-UQCH65zP6Da58Nplo"
     app = App(uri, user, password)
-    app.create_friendship("Alice", "David")
-    app.find_person("Alice")
+    # app.create_friendship("Alice", "David")
+    # result = app.find_movie_by_property('title', 'Toy Story')
+    # result = app.delete_movie_by_property('title', 'Toy Waiting to Exhale')
+
+    # deletedMovie = {
+    #     'original_language': "en",
+    #     'release_date': '1995-12-22T00:00:00Z',
+    #     'production_companies': "[{'name': 'Twentieth Century Fox Film Corporation', 'id': 306}]",
+    #     'genres': "[{'id': 35, 'name': 'Comedy'}, {'id': 18, 'name': 'Drama'}, {'id': 10749, 'name': 'Romance'}]",
+    #     'vote_average': 6.1,
+    #     'id': 31357,
+    #     'title': "Waiting to Exhale",
+    #     'adult': False
+    # }
+
+    # result = app.find_actor_by_property('Name', 'Melinda West')
+    result = app.find_myList()
+    node = result[0]
+    # print(node.keys())
+    print(len(result))
+    # print(node)
+    # for i in result[0]:
+    #     print(i + '\n')
     app.close()
