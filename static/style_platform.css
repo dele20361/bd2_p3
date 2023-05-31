@@ -53,18 +53,57 @@ text{
 
   }
 
-  .container .card  img {
+.container .card  img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 7%;
  
   }
 
-  .container .card:hover {
+.container .card:hover {
     transform: translateY(-15px);
     box-shadow: 1px 12px 34px rgba(233, 230, 230, 0.31);
   }
   
 .title{
     text-align: center;
+}
+
+.card_add{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.container .card_add {
+  width: 250px;
+  height: 200px;
+  max-width: 100%;
+  max-height: 100%; 
+  margin-top: 45px;
+  margin-left: 1.5px;
+  border-radius: 7%;
+  box-shadow: 1px 22px 44px rgba(78, 76, 76, 0.473);
+  background:darkgray;
+  backdrop-filter: blur(4px) saturate(180%);
+  opacity: 0.7;
+
+}
+
+.container .card_add:hover {
+  transform: translateY(-15px);
+  box-shadow: 1px 12px 34px rgba(233, 230, 230, 0.31);
+}
+
+.card_add button {
+  border: 0;
+  border-radius: 50%;
+  width: 75px;
+  height: 75px;
+  background:white;
+  cursor: pointer;
+  opacity: 0.6;
+  color: darkgrey;
+  font-size: 3vw;
+  font-weight: bold;
 }
