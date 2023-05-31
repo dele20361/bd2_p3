@@ -3,7 +3,7 @@ from system import App
 
 app = Flask(__name__, template_folder='template', static_folder='static')
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def platfomr():
     # Obtener titulo e imagen de plataforma
     result = appNeo.find_platform()
@@ -38,35 +38,35 @@ def login():
     
 
 
-@app.route('/register')
+@app.route('/register', methods=['GET', 'POST'])
 def register():
     return render_template('register.html')
 
-@app.route('/homepage')
+@app.route('/homepage', methods=['GET', 'POST'])
 def homepage():
     return render_template('homepage.html')
 
-@app.route('/editMovie')
+@app.route('/editMovie', methods=['GET', 'POST'])
 def editMovie():
     return render_template('editarMovie.html')
 
-@app.route('/editUser')
+@app.route('/editUser', methods=['GET', 'POST'])
 def editUser():
     return render_template('editarUser.html')
 
-@app.route('/search')
+@app.route('/search', methods=['GET', 'POST'])
 def search():
     return render_template('search.html')
 
-@app.route('/consulta')
+@app.route('/consulta', methods=['GET', 'POST'])
 def consulta():
     return render_template('consulta.html')
 
-@app.route('/update')
+@app.route('/update', methods=['GET', 'POST'])
 def update():
     return render_template('update.html')
 
-@app.route('/editPlatform')
+@app.route('/editPlatform', methods=['GET', 'POST'])
 def editPlatform():
     return render_template('editPlatform.html')
 
