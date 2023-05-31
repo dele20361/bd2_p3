@@ -1,0 +1,131 @@
+body{
+  
+    height: 100vh;
+    background-color:black;
+    background-size: cover;
+    font-family: Arial, Helvetica, sans-serif;
+    
+  }
+
+header h2{
+    margin-top: 20px;
+    text-align: center;
+    height: 40px;
+    font-size: 2vw;
+    margin-bottom: -30px;
+    font-size: 35px;
+    color: white;
+    padding: 30px;
+}
+
+h2{
+    color: white;
+    font-size: 1.5vw;
+    line-height: .8;
+    top: 200px;
+    color:white;
+    margin-left:5%;
+    display: block;
+  }
+
+
+.options{
+    width: 101%;
+    height: 30px;
+    background: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: -8px;
+    box-shadow: 1px 12px 34px rgba(230, 225, 225, 0.31);
+    margin-top: 3px;
+    margin-left: -5px;
+}
+
+.selection {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.selection a {
+    margin-left: 15px;
+    color: white;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.selection a:hover {
+    transform: translateY(-4px);
+    text-decoration: none;
+    
+}
+
+.fullscreen {
+    width: 100%;
+    background: #020001;
+
+  }
+
+.container {
+    width: 100%;
+    margin: auto;
+    height: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    border-top: 1px solid white;
+
+}
+
+.controls{
+    width: 250px;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+    border: 1px solid lightgrey;
+    font-size: 13px;
+}
+
+
+.content{
+    width: 85%;
+    margin: auto;
+    height: 150px;
+    padding: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}
+
+.Conteiner_btn {
+    width: 80%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;;
+    margin-top: -2%;
+
+
+}
+
+.Conteiner_btn .botons{
+    width: 20%;
+    border: none;
+    padding: 12px;
+    margin: 16px 0px;
+    font-size: 16px;
+    background-color: #e68a2e;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.Conteiner_btn .botons:hover{
+    background-color:rgb(243, 168, 27);
+    color: black;
+}
