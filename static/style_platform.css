@@ -11,7 +11,7 @@ h1 {
     text-align: center;
     color:white;
     left:800px;
-    margin-bottom: -45px;
+    margin-bottom: 1%;
 }
 
 text{
@@ -26,6 +26,9 @@ text{
     min-height: 850px;
     max-height: auto;
     background: #020001;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid white;
   }
   
 .container {
@@ -46,7 +49,7 @@ text{
     max-width: 100%;
     max-height: 100%; 
     margin-top: 45px;
-    margin-left: 1.5px;
+    margin-left: 10px;
     border-radius: 7%;
     border: solid 1px;
     box-shadow: 1px 22px 44px rgba(0, 0, 0, 0.19);
@@ -81,7 +84,7 @@ text{
   max-width: 100%;
   max-height: 100%; 
   margin-top: 45px;
-  margin-left: 1.5px;
+  margin-left: 10px;
   border-radius: 7%;
   box-shadow: 1px 22px 44px rgba(78, 76, 76, 0.473);
   background:darkgray;
@@ -103,7 +106,12 @@ text{
   background:white;
   cursor: pointer;
   opacity: 0.6;
+}
+
+.card_add a {
+  cursor: pointer;
   color: darkgrey;
   font-size: 3vw;
   font-weight: bold;
+  text-decoration: none;
 }

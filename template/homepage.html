@@ -31,8 +31,12 @@
             </div>
 
             <div class = 'selection'>
-                <i class="fa fa-spinner " style="font-size:25px; color: #e68a2e; "></i>
+                <i class="fa fa-spinner " style="font-size:35px; color: #e68a2e; "></i>
                 <a href="{{ url_for('consulta') }}" id="Consulta"> Realizar Consulta </a>
+            </div>
+
+            <div class = 'selection' id="out">
+                <i class="fa fa-sign-out " style="font-size:35px; color: #e68a2e; cursor: pointer;"></i>
             </div>
         </div>
         <h2> Homepage </h2>
@@ -330,6 +334,12 @@
             const randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
             card.style.backgroundColor = randomColor;
             });
+
+
+            var logoOut = document.getElementById("out");
+            logoOut.onclick = function() {
+                window.location.href = "{{ url_for('login') }}";
+            };
           </script>
 
 </body>

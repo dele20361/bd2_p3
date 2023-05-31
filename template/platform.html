@@ -12,7 +12,7 @@
     </head>
     <div class = "fullscreen">
         <div class = 'container'>
-            <div class="card" id="image1">
+            <div class="card" id="square">
                 <div class="content">
                     <img src="{{platformsImg[0]}}">
                     <div class="title">
@@ -21,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="card" id="image1">
+            <div class="card" id="square">
                 <div class="content">
                     <img src="{{platformsImg[1]}}">
                     <div class="title">
@@ -30,7 +30,7 @@
                 </div>
             </div>
 
-            <div class="card" id="image1">
+            <div class="card" id="square">
                 <div class="content">
                     <img src="{{platformsImg[2]}}">
                     <div class="title">
@@ -39,7 +39,7 @@
                 </div>
             </div>
 
-            <div class="card" id="image1" >
+            <div class="card" id="square" >
                 <div class="content">
                     <img src="{{platformsImg[3]}}">
                     <div class="title">
@@ -47,7 +47,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card" id="image1" >
+            <div class="card" id="square" >
                 <div class="content">
                     <img src="{{platformsImg[4]}}">
                     <div class="title">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card" id="image1" >
+            <div class="card" id="square" >
                 <div class="content">
                     <img src="{{platformsImg[5]}}">
                     <div class="title">
@@ -63,7 +63,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card " id="image1" >
+            <div class="card " id="square" >
                 <div class="content">
                     <img src="{{platformsImg[6]}}">
                     <div class="title">
@@ -71,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card" id="image1"  >
+            <div class="card" id="square"  >
                 <div class="content">
                     <img src="{{platformsImg[7]}}">
                     <div class="title">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card" id="image1" >
+            <div class="card" id="square" >
                 <div class="content">
                     <img src="{{platformsImg[8]}}">
                     <div class="title">
@@ -87,7 +87,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card" id="image1"  >
+            <div class="card" id="square"  >
                 <div class="content">
                     <img src="{{platformsImg[9]}}">
                     <div class="title">
@@ -97,9 +97,24 @@
             </div>
 
             <div class="card_add" >
-                <button class="icon-button"> + </button>
+                <button class="icon-button"> 
+                    <a href="{{ url_for('editPlatform') }}"> + </a>
+                </button>
             </div>
 
         </div>
     </div>
+    <script>
+        // Obtén todos los elementos con la clase "square"
+        var contenedores = document.getElementsByClassName("card");
+
+        // Recorre todos los contenedores y agrega el evento onclick a cada uno
+        for (var i = 0; i < contenedores.length; i++) {
+        contenedores[i].onclick = function() {
+            // Código a ejecutar cuando se hace clic en el contenedor
+            window.location.href = "{{ url_for('login') }}";
+        };
+        }
+
+    </script>
 </body>

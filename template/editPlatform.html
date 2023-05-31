@@ -25,7 +25,7 @@
                 <div class="Conteiner_btn">
                     <input class="botons" type="submit" value="Crear">
                     <input class="botons" type="submit" value="Eliminar">
-                    <input class="botons" type="submit" value="Cancelar">
+                    <input class="botons" type="submit" value="Cancelar" id="salir" onclick="redirectToplatform()">
                 </div>
             </div>
 
@@ -64,6 +64,11 @@
                 </div>
             </div>
         
+            <script>
+                function redirectToplatform() {
+                    window.location.href = "{{ url_for('platfomr') }}";
+                }
+            </script>
 
     </body>  
 </html>
