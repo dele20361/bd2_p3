@@ -9,18 +9,20 @@
 
 
 <body>
-    <section class="form">
-        <h4> Formulario Login </h4>
-        <label>
-            <i class="fa fa-user" style="font-size:30px; "></i>
-            <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
-        </label>
-        <label>
-            <i class="fa fa-lock" style="font-size:30px; "></i>
-            <input class="controls" type="password" name="contra" id="contra" placeholder="Ingrese su Contraseña">
-        </label>
-        <input class="botons" type="submit" value="Ingresar">
-        <p><a href="#"> Registrarse en la plataforma </a></p>
+    <form action="/" method="POST">
+        <section class="form">
+            <h4> Formulario Login </h4>
+            <label>
+                <i class="fa fa-user" style="font-size:45px; "></i>
+                <input class="controls" type="email" name="correo" id="correo" placeholder="Ingrese su Correo">
+            </label>
+            <label>
+                <i class="fa fa-lock" style="font-size:45px; "></i>
+                <input class="controls" type="password" name="contra" id="contra" placeholder="Ingrese su Contraseña">
+            </label>
+            <input class="botons" type="submit" value="Ingresar">
+            <p><a href="{{ url_for('register') }}"> Registrarse en la plataforma </a></p>
         </section>
+    </form>
 </body>  
 </html>

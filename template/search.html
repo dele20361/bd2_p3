@@ -10,28 +10,28 @@
         <header>
             <div class ='options'>
                 <div class = 'selection'>
-                    <i class="fa fa-home" style="font-size:25px; color: #e68a2e;  "></i>
-                    <a href="#"> Homepage</a>
+                    <i class="fa fa-home" style="font-size:35px; color: #e68a2e;  "></i>
+                    <a href="{{ url_for('homepage') }}" id="Homepage"> Homepage</a>
                 </div>
 
                 <div class = 'selection'>
-                    <i class="fa fa-video-camera" style="font-size:25px; color: #e68a2e;  "></i>
-                    <a href="#"> Editar Pelicula </a>
+                    <i class="fa fa-video-camera" style="font-size:35px; color: #e68a2e;  "></i>
+                    <a href="{{ url_for('editMovie') }}" id="Epelicula"> Editar Pelicula </a>
                 </div>
     
                 <div class = 'selection'>
-                    <i class="fa fa-cog " style="font-size:25px; color: #e68a2e; "></i>
-                    <a href="#"> Editar Usuario </a>
+                    <i class="fa fa-cog " style="font-size:35px; color: #e68a2e; "></i>
+                    <a href="{{ url_for('editUser') }}" id="EUsuario"> Editar Usuario </a>
                 </div>
     
                 <div class = 'selection'>
-                    <i class="fa fa-search " style="font-size:25px; color: #e68a2e; "></i>
-                    <a href="#"> Buscar Pelicula </a>
+                    <i class="fa fa-search " style="font-size:35px; color: #e68a2e; "></i>
+                    <a href="{{ url_for('search') }}" id="Bpelicula"> Buscar Pelicula </a>
                 </div>
     
                 <div class = 'selection'>
-                    <i class="fa fa-spinner " style="font-size:25px; color: #e68a2e; "></i>
-                    <a href="#"> Realizar Consulta </a>
+                    <i class="fa fa-spinner " style="font-size:35px; color: #e68a2e; "></i>
+                    <a href="{{ url_for('consulta') }}" id="Consulta"> Realizar Consulta </a>
                 </div>
     
             </div>

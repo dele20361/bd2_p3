@@ -1,8 +1,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title> Realizar consulta </title>
-        <link rel="stylesheet" href="/static/style_consulta.css">
+        <title> Editar Usuario </title>
+        <link rel="stylesheet" href="/static/style_edit.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     
@@ -32,24 +32,34 @@
                 <div class = 'selection'>
                     <i class="fa fa-spinner " style="font-size:35px; color: #e68a2e; "></i>
                     <a href="{{ url_for('consulta') }}" id="Consulta"> Realizar Consulta </a>
+                </div>
+    
             </div>
-            </div>
-            <h2> Realizar una consulta </h2>
+            <h2> Editar un usuario</h2>
         </header>
 
-        <div class="container">
-            <form class="search">
-                <input type="text", placeholder="Ingresar query", name="searchBar">
-                <button class="icon-button">
-                    <i class="fa fa-spinner fa-spin" style="font-size:20px; color:white"></i>
-                </button>
-            </form>
-        </div>
-        <div class="container">
-            <div class="body">
-                <p>QUERY RESULT</p>
+        <div class = "fullscreen">
+            <h2> Editar User </h2>
+            <div class="container" >
+                <div class="content">
+                    <input class="controls" type="text" name="name" id="name" placeholder="Ingrese nombre">
+                    <input class="controls" type="text" name="contry" id="contry" placeholder="Ingrese pais">
+                    <input class="controls" type="number" name="ids" id="ids" placeholder="Ingrese un numero">
+                    <input class="controls" type="number" name="age" id="age" placeholder="Ingrese edad">
+                    <input class="controls" type="gender" name="age" id="gender" placeholder="Ingrese genero">
+                </div>
+
+                <div class="Conteiner_btn">
+                    <input class="botons" type="submit" value="Crear" id="crear">
+                    <input class="botons" type="submit" value="Eliminar" id="eliminar">
+                    <input class="botons" type="submit" value="Realizar actualizacion" id="actualizar" onclick="redirectToUpdate()">
+                </div>
             </div>
 
-        </div>
+    <script>
+        function redirectToUpdate() {
+            window.location.href = "{{ url_for('update') }}";
+        }
+    </script>
     </body>  
 </html>
