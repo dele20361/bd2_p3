@@ -19,7 +19,7 @@ app = Flask(__name__, template_folder='template', static_folder='static')
 #     return render_template('platform.html', platformsNames=platformsNames, platformsImg=platformsImg)
 
 @app.route('/', methods=['GET', 'POST'])
-def loginr():
+def login():
     if request.method == 'POST':
         correo = request.form['correo']
         contra = request.form['contra']
@@ -35,12 +35,41 @@ def loginr():
         
     else:
         return render_template('logIn.html')
+    
+
+
+@app.route('/register')
+def register():
+    # return render_template('register.html')
+    return render_template('homepage.html')
+
+@app.route('/homepage')
+def homepage():
+    return render_template('homepage.html')
+
+@app.route('/editMovie')
+def editMovie():
+    return render_template('editarMovie.html')
+
+@app.route('/editUser')
+def editUser():
+    return render_template('editarUser.html')
+
+@app.route('/search')
+def search():
+    return render_template('search.html')
+
+@app.route('/consulta')
+def consulta():
+    return render_template('consulta.html')
+
+
 
 
 if __name__ == '__main__':
     uri = "neo4j+s://85d17210.databases.neo4j.io"
     user = "neo4j"
     password = "8_aBrbwezxsQxvPsIhl2UobQu-UQCH65zP6Da58Nplo"
-    appNeo = App(uri, user, password)
+    #appNeo = App(uri, user, password)
     app.run()
-    appNeo.close()
+    #appNeo.close()
