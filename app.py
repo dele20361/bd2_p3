@@ -3,22 +3,22 @@ from system import App
 
 app = Flask(__name__, template_folder='template', static_folder='static')
 
-# @app.route('/')
-# def platfomr():
-#     # Obtener titulo e imagen de plataforma
-#     result = appNeo.find_platform()
-#     platformsInfo = {}
-#     for record in result:
-#         platform_name = record["name"]
-#         image_link = record["image_link"]
-#         platformsInfo[platform_name] = image_link
+@app.route('/')
+def platfomr():
+    # Obtener titulo e imagen de plataforma
+    result = appNeo.find_platform()
+    platformsInfo = {}
+    for record in result:
+        platform_name = record["name"]
+        image_link = record["image_link"]
+        platformsInfo[platform_name] = image_link
 
-#     platformsNames = list(platformsInfo.keys())[-10:]
-#     platformsImg = [platformsInfo[key] for key in platformsNames]
+    platformsNames = list(platformsInfo.keys())[-10:]
+    platformsImg = [platformsInfo[key] for key in platformsNames]
     
-#     return render_template('platform.html', platformsNames=platformsNames, platformsImg=platformsImg)
+    return render_template('platform.html', platformsNames=platformsNames, platformsImg=platformsImg)
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         correo = request.form['correo']
