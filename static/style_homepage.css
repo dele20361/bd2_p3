@@ -49,6 +49,7 @@ text{
   justify-content: space-around;
   flex-wrap: wrap;
   border-top: 1px solid white;
+  cursor: pointer;
 }
 
 .container .card {

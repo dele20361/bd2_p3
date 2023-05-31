@@ -66,6 +66,9 @@ def consulta():
 def update():
     return render_template('update.html')
 
+@app.route('/editPlatform')
+def editPlatform():
+    return render_template('editPlatform.html')
 
 if __name__ == '__main__':
     uri = "neo4j+s://85d17210.databases.neo4j.io"
