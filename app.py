@@ -40,8 +40,7 @@ def login():
 
 @app.route('/register')
 def register():
-    # return render_template('register.html')
-    return render_template('homepage.html')
+    return render_template('register.html')
 
 @app.route('/homepage')
 def homepage():
@@ -63,13 +62,15 @@ def search():
 def consulta():
     return render_template('consulta.html')
 
-
+@app.route('/update')
+def update():
+    return render_template('update.html')
 
 
 if __name__ == '__main__':
     uri = "neo4j+s://85d17210.databases.neo4j.io"
     user = "neo4j"
     password = "8_aBrbwezxsQxvPsIhl2UobQu-UQCH65zP6Da58Nplo"
-    #appNeo = App(uri, user, password)
+    appNeo = App(uri, user, password)
     app.run()
-    #appNeo.close()
+    appNeo.close()

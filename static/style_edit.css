@@ -124,6 +124,7 @@ h2{
     color: white;
     border-radius: 4px;
     transition: background-color 0.3s;
+    cursor: pointer;
 }
 
 .Conteiner_btn .botons:hover{
