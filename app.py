@@ -26,12 +26,13 @@ def loginr():
         
         # Validar el inicio de sesión
         # TODO
-        if correo == 'usuario@ejemplo.com' and contra == 'contraseña':
-            mensaje = "Inicio de sesión exitoso"
+        result = appNeo.find_Subscribed_by_relationship_property(property_key='email', property_value=correo)
+        if len(result) > 0:
+            if result[0]['contra'] == contra:
+                return render_template('homepage.html')
         else:
             mensaje = "Credenciales inválidas"
         
-        return render_template('homepage.html', mensaje=mensaje)
     else:
         return render_template('logIn.html')
 
