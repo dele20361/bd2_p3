@@ -778,7 +778,7 @@ class App:
             """
             session.run(query)
         
-    def delete_Favorites_relationship(self, user_id, movie_id):
+    def delete_Favorites_relationship(self, user_id, movie_title):
         '''
             Eliminar relación Favorites entre user y movie.
 
