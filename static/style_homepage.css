@@ -62,6 +62,7 @@ text{
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 .container .card:hover {
@@ -146,12 +147,35 @@ text{
 
 .circle{
   border-radius: 50%;
-  width: 70px;
-  height: 70px;
+  width: 45px;
+  height: 45px;
   background: white;
   cursor: pointer;
   opacity: 0.6;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.remove{
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background: white;
+  cursor: pointer;
+  opacity: 0.6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.opt2{
+  width: 75px;
+  height: 55px;
+  display: flex;
+  justify-content:center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
 }

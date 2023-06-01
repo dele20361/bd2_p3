@@ -22,7 +22,7 @@ header h2{
     color: white;
     font-size: 1.5vw;
     line-height: .8;
-    top: 200px;
+    margin-top: 3%;
     color:white;
     margin-left:14%;
     display: block;
@@ -162,4 +162,52 @@ text{
 select {
     font-size: 13px;
     color: lightslategray
+}
+
+.container2 {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    border-top: 1px solid white;
+    flex-direction: row;
+}
+
+.content2 {
+    width: 45%;
+    margin: auto;
+    height: 255px;
+    padding: 3 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+
+}
+
+.conteinerText {
+    width: 100%;
+    height: 25%;
+    display: flex;
+    bottom: 0;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: -2.5%;
+  }
+
+.content3{
+    width: 20%;
+    margin: auto;
+    height: 250px;
+    padding: 3 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin-top: 1.3%;
+
 }
