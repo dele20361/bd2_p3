@@ -43,6 +43,7 @@
         </header>
 
         <div class = "fullscreen">
+            <form action="/update_data" method="POST">
             <h2> Editar Pelicula </h2>
             <div class="container" >
                 <div class="content">
@@ -57,9 +58,9 @@
                 </div>
 
                 <div class="Conteiner_btn">
-                    <input class="botons" type="submit" value="Crear" id="crear">
-                    <input class="botons" type="submit" value="Eliminar" id="eliminar">
-                    <input class="botons" type="submit" value="Realizar actualizacion" id="actualizar" onclick="redirectToUpdate()">
+                    <input class="botons" type="submit" value="Crear" name="submit">
+                    <input class="botons" type="submit" value="Eliminar" name="submit">
+                    <input class="botons" type="submit" value="Realizar actualizacion" name="submit" onclick="redirectToUpdate()">
                 </div>
             </div>
 
@@ -75,9 +76,9 @@
                 </div>
 
                 <div class="Conteiner_btn">
-                    <input class="botons" type="submit" value="Crear" id="crear">
-                    <input class="botons" type="submit" value="Eliminar" id="eliminar">
-                    <input class="botons" type="submit" value="Realizar actualizacion" id="actualizar" onclick="redirectToUpdate()">
+                    <input class="botons" type="submit" value="Crear" name="submit">
+                    <input class="botons" type="submit" value="Eliminar" name="submit">
+                    <input class="botons" type="submit" value="Realizar actualizacion" name="submit" onclick="redirectToUpdate()">
                 </div>
             </div>
 
@@ -93,11 +94,12 @@
                 </div>
 
                 <div class="Conteiner_btn">
-                    <input class="botons" type="submit" value="Crear" id="crear">
-                    <input class="botons" type="submit" value="Eliminar" id="eliminar">
-                    <input class="botons" type="submit" value="Realizar actualizacion" id="actualizar" onclick="redirectToUpdate()">
+                    <input class="botons" type="submit" value="Crear" name="submit">
+                    <input class="botons" type="submit" value="Eliminar" name="submit">
+                    <input class="botons" type="submit" value="Realizar actualizacion" name="submit" onclick="redirectToUpdate()">
                 </div>
             </div>
+            </form>
 
         <script>
             function redirectToUpdate() {

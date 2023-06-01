@@ -44,6 +44,7 @@
 
         <div class = "fullscreen">
             <h2> Ingresar datos </h2>
+            <form action="{{ url_for('update_data') }}" method="POST">
             <div class="container" >
                 <div class="label">
                     <input class="controls" type="text" name="adult" id="adult" placeholder="Ingrese el label del nodo">
@@ -104,6 +105,7 @@
                     <input class="botons" type="submit" value="Actualizar">
                 </div>
             </div>
+            </form>
 
     <script>
         var logoOut = document.getElementById("out");

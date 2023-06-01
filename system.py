@@ -11,6 +11,122 @@ class App:
     def close(self):
         self.driver.close()
 
+    #------------------------------------------------------- CREATE
+    
+    #--- user
+    
+    def createuser(self, gender,name,ids,country,age):
+        query = """
+        CREATE (u:User {name: $name, country: $country, id: $ids, age: $age, gender: $gender})
+        """
+
+        parameters = {
+            'name': name,
+            'country': country,
+            'ids': ids,
+            'age': age,
+            'gender': gender
+        }
+
+        with self.driver.session(database="neo4j") as session:
+            result = session.run(query, parameters)
+
+    
+    # ------------------------------------------------------ UPDATE -----------------------------------------
+    
+    #----------editarmovie
+    
+    #--pelicula
+    def updatemovie(self,adult,genres,ids,Lenguage, nombres, datetime,tittle,vote_average):
+        query = """
+        MATCH (m:Movie {id: $ids})
+        SET m.adult = $adult, m.genres = $genres, m.lenguage = $lenguage,
+            m.nombres = $nombres, m.datetime = $datetime, m.tittle = $tittle,
+            m.vote_average = $vote_average
+        """
+
+        parameters = {
+            'ids': ids,
+            'adult': adult,
+            'genres': genres,
+            'lenguage': Lenguage,
+            'nombres': nombres,
+            'datetime': datetime,
+            'tittle': tittle,
+            'vote_average': vote_average
+        }
+
+        with self.driver.session(database="neo4j") as session:
+            result = session.run(query, parameters)
+    
+    #-- staff
+    def updatestaff(self, gender,nombres,ids,nationality,rol,correo):
+        query = """
+        MATCH (s:Staff {id: $ids})
+        SET s.gender = $gender, s.nombres = $nombres, s.nationality = $nationality,
+            s.rol = $rol, s.correo = $correo
+        """
+
+        parameters = {
+            'ids': ids,
+            'gender': gender,
+            'nombres': nombres,
+            'nationality': nationality,
+            'rol': rol,
+            'correo': correo
+        }
+
+        with self.driver.session(database="neo4j") as session:
+            result = session.run(query, parameters)
+    
+
+    
+    #-- actor
+    def updateactor(self,gender,nombres,ids,profile,age):
+        query = """
+        MATCH (a:Actor {id: $ids})
+        SET a.gender = $gender, a.nombres = $nombres, a.profile = $profile,
+            a.age = $age
+        """
+
+        parameters = {
+            'ids': ids,
+            'gender': gender,
+            'nombres': nombres,
+            'profile': profile,
+            'age': age
+        }
+
+        with self.driver.session(database="neo4j") as session:
+            result = session.run(query, parameters)
+
+    #------------------ update user
+    
+    def updateuser(self, gender,name,ids,country,age):
+        query = """
+        MATCH (u:User {id: $ids})
+        SET u.name = $name, u.country = $country, u.age = $age, u.gender = $gender
+        """
+
+        parameters = {
+            'ids': ids,
+            'name': name,
+            'country': country,
+            'age': age,
+            'gender': gender
+        }
+
+        with self.driver.session(database="neo4j") as session:
+            result = session.run(query, parameters)
+
+    
+    #update html
+    def update(self, label, old_property, old_value, new_property, new_value ):
+        
+        with self.driver.session(database="neo4j") as session:
+            # Aquí puedes generar el query de actualización con los datos recibidos
+            query = f"MATCH (n:{label}) WHERE n.{old_property} = '{old_value}' SET n.{new_property} = '{new_value}' RETURN n"
+            result = session.run(query)
     # ------------------------------------------------------- START MOVIE ------------------------------------------------------- #
 
     def delete_movie_by_property(self, property_key, property_value):
