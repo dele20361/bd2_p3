@@ -769,12 +769,12 @@ class App:
     # ----------------------------------------------------- START Favorites ----------------------------------------------------- #
 
 
-    def agregarRelacion(self, pelicula_id,usuario_id,tipo):
+    def agregarRelacion(self, relacion,usuario_id,titlecontent):
         with self.driver.session(database="neo4j") as session:
             # Crear el query para agregar la relación
             query = f"""
-                MATCH (p:Pelicula {{id: '{pelicula_id}'}}), (u:Usuario {{id: '{usuario_id}'}})
-                CREATE (u)-[:{tipo}]->(p)
+                MATCH (p:Pelicula {{id: '{titlecontent}'}}), (u:Usuario {{id: '{usuario_id}'}})
+                CREATE (u)-[:{relacion}]->(p)
             """
             session.run(query)
         

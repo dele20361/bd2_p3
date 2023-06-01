@@ -65,21 +65,8 @@ def homepage():
     if len(titlesContent) > 20:
         titlesContent = titlesContent[:20]
         
-@app.route('/agregarRelacion', methods=['POST'])
-def agregarRelacion():
-    # Obtener el ID de la película y el ID del usuario en sesión desde los datos enviados por POST
-    data = request.get_json()
-    destino = data['destino']
-    titlecontent = data['titlecontent']
-    usuario_id=userID
 
-    # Realiza alguna acción con los datos recibidos
-
-    appNeo.agregarRelacion(destino,usuario_id,titlecontent)
     
-
-
-
     # Obtener My List del user
     myListContent = appNeo.find_mylist_by_user_property_return_movie('ID', userID)
     myListContentTitles = [i['title'] for i in myListContent]
@@ -113,6 +100,20 @@ def agregarRelacion():
         watchedTitles = watchedTitles[-5:]
 
     return render_template('homepage.html', titlesContent=titlesContent, myListContentTitles=myListContentTitles, myRecosTitles=myRecosTitles, favoritesTitles=favoritesTitles, watchedTitles=watchedTitles)
+
+           
+@app.route('/agregarRelacion', methods=['POST'])
+def agregarRelacion():
+    # Obtener el ID de la película y el ID del usuario en sesión desde los datos enviados por POST
+    data = request.get_json()
+    relacion = request.form['relacion']
+    titlecontent = data['titlecontent']
+    usuario_id=userID
+    
+    # Realiza alguna acción con los datos recibidos
+
+    appNeo.agregarRelacion(relacion,usuario_id,titlecontent)
+
 
 @app.route('/deleteMyFavorites', methods=['GET', 'POST'])
 def deleteMyFavorites():
