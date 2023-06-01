@@ -185,7 +185,7 @@ class App:
                 query += f"m.{key} = ${key} AND "
 
             query = query[:-4]
-            query += "DELETE m"
+            query += "DETACH DELETE m"
 
             print(query)
             result = session.run(query, **properties)
@@ -209,7 +209,7 @@ class App:
             query = (
                 "MATCH (m:Movie) "
                 "WHERE m." + property_key + " = $" + property_key + " "
-                "DELETE m"
+                "DETACH DELETE m"
             )
             result = session.run(query, **{property_key: property_value})
             return result
@@ -278,7 +278,7 @@ class App:
                 query += f"m.{key} = ${key} AND "
 
             query = query[:-4]
-            query += "DELETE m"
+            query += "DETACH DELETE m"
 
             print(query)
             result = session.run(query, **properties)
@@ -302,7 +302,7 @@ class App:
             query = (
                 "MATCH (m:actors) "
                 "WHERE m." + property_key + " = $" + property_key + " "
-                "DELETE m"
+                "DETACH DELETE m"
             )
             result = session.run(query, **{property_key: property_value})
             return result
@@ -371,7 +371,7 @@ class App:
                 query += f"m.{key} = ${key} AND "
 
             query = query[:-4]
-            query += "DELETE m"
+            query += "DETACH DELETE m"
 
             print(query)
             result = session.run(query, **properties)
@@ -395,7 +395,7 @@ class App:
             query = (
                 "MATCH (m:staff) "
                 "WHERE m." + property_key + " = $" + property_key + " "
-                "DELETE m"
+                "DETACH DELETE m"
             )
             result = session.run(query, **{property_key: property_value})
             return result
@@ -418,7 +418,7 @@ class App:
             query = (
                 "MATCH (m:staff) "
                 "WHERE m." + property_key + " = $" + property_key + " "
-                "RETURN m"
+                "DETACH RETURN m"
             )
             result = session.run(query, **{property_key: property_value})
             return [record["m"] for record in result]
@@ -464,7 +464,7 @@ class App:
                 query += f"m.{key} = ${key} AND "
 
             query = query[:-4]
-            query += "DELETE m"
+            query += "DETACH DELETE m"
 
             print(query)
             result = session.run(query, **properties)
@@ -488,7 +488,7 @@ class App:
             query = (
                 "MATCH (m:user) "
                 "WHERE m." + property_key + " = $" + property_key + " "
-                "DELETE m"
+                "DETACH DELETE m"
             )
             result = session.run(query, **{property_key: property_value})
             return result
@@ -558,7 +558,7 @@ class App:
                 query += f"m.{key} = ${key} AND "
 
             query = query[:-4]
-            query += "DELETE m"
+            query += "DETACH DELETE m"
 
             print(query)
             result = session.run(query, **properties)
@@ -582,7 +582,7 @@ class App:
             query = (
                 "MATCH (m:platform) "
                 "WHERE m." + property_key + " = $" + property_key + " "
-                "DELETE m"
+                "DETACH DELETE m"
             )
             result = session.run(query, **{property_key: property_value})
             return result
