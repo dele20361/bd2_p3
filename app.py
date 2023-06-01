@@ -340,7 +340,7 @@ def editUser():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-    return render_template('search.html', title='')
+    return render_template('search.html', title='', info='')
 
 @app.route("/searchMovie", methods=['GET', 'POST'])
 def searchMovie():
@@ -352,9 +352,18 @@ def searchMovie():
         title = request.form['searchBar']
 
         if title in titlesContent:
-            return render_template('search.html', title=title)
+            # Buscar info de película
+            result = appNeo.find_movie_by_property('title', title)
+            movieInfo = result[0]
+            description = f"""
+            - Idioma original: {movieInfo['original_language']}\n
+            - Fecha de estreno: {(movieInfo['release_date'])}\n
+            \n\n
+            Puntuación: {movieInfo['vote_average']}
+            """
+            return render_template('search.html', title=title, info=description)
         else:
-            return render_template('search.html', title='No se encontró el título en la base de datos.')
+            return render_template('search.html', title='No se encontró el título en la base de datos.', info='')
 
 @app.route('/consulta', methods=['GET', 'POST'])
 def consulta():
