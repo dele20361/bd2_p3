@@ -44,6 +44,8 @@
 
         <div class = "fullscreen">
             <h2> Actualizar Nodos </h2>
+            <h2> Ingresar datos </h2>
+            <form action="{{ url_for('update_data') }}" method="POST">
             <div class="container" >
                 <div class="label">
                     <input class="controls" type="text" name="adult" id="adult" placeholder="Ingrese el label del nodo">
@@ -104,6 +106,7 @@
                     <input class="botons" type="submit" value="Actualizar">
                 </div>
             </div>
+            </form>
 
             <h2> Actualizar Relacion </h2>
             <div class="container2" >

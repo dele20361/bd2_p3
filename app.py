@@ -89,12 +89,115 @@ def homepage():
 
     return render_template('homepage.html', titlesContent=titlesContent, myListContentTitles=myListContentTitles, myRecosTitles=myRecosTitles, favoritesTitles=favoritesTitles)
 
+
+
 @app.route('/editMovie', methods=['GET', 'POST'])
 def editMovie():
+    if request.method == 'POST':
+        if request.form['submit'] == 'Crear Pelicula':
+            # Lógica para crear una película en la base de datos
+            # Extraer los datos del formulario
+            adult = request.form['adult']
+            genres = request.form['genres']
+            ids = request.form['ids']
+            language = request.form['lenguage']
+            company = request.form['nombres']
+            datetime = request.form['datetime']
+            title = request.form['title']
+            vote_average = request.form['vote_average']
+            # Ejecutar el query de creación de película en la base de datos
+            appNeo.createmovie(adult, genres, ids, language, company, datetime, title, vote_average)
+            
+        elif request.form['submit'] == 'Crear Staff':
+            # Lógica para crear un miembro del staff en la base de datos
+            # Extraer los datos del formulario
+            nombres = request.form['nombres']
+            gender = request.form['gender']
+            ids = request.form['ids']
+            nationality = request.form['nationality']
+            rol = request.form['rol']
+            correo = request.form['correo']
+            # Ejecutar el query de creación de miembro del staff en la base de datos
+            appNeo.createstaff(nombres, gender, ids, nationality, rol, correo)
+                   
+        elif request.form['submit'] == 'Crear Actor':
+            # Lógica para crear un actor en la base de datos
+            # Extraer los datos del formulario
+            nombres = request.form['nombres']
+            profile = request.form['profile']
+            age = request.form['age']
+            gender = request.form['gender']
+            ids = request.form['ids']
+            # Ejecutar el query de creación de actor en la base de datos
+            appNeo.createactor(nombres, profile, age, gender, ids)
+            
+        elif request.form['submit'] == 'Eliminar':
+            # Lógica para realizar la eliminación en la base de datos
+            pass
+        elif request.form['submit'] == 'Actualizar Pelicula':
+            # Lógica para actualizar los datos de la película
+            adult = request.form['adult']
+            genres = request.form['genres']
+            ids = request.form['ids']
+            language = request.form['lenguage']
+            company = request.form['nombres']
+            datetime = request.form['datetime']
+            title = request.form['title']
+            vote_average = request.form['vote_average']
+            
+            appNeo.updatemovie(adult, genres, ids, language, company, datetime, title, vote_average)
+            
+        elif request.form['submit'] == 'Actualizar Staff':
+            # Lógica para actualizar los datos del staff
+            nombres = request.form['nombres']
+            gender = request.form['gender']
+            ids = request.form['ids']
+            nationality = request.form['nationality']
+            rol = request.form['rol']
+            correo = request.form['correo']
+            
+            appNeo.updatestaff(gender, nombres, ids, nationality, rol, correo)
+            
+        elif request.form['submit'] == 'Actualizar Actor':
+            # Lógica para actualizar los datos del actor
+            nombres = request.form['nombres']
+            profile = request.form['profile']
+            age = request.form['age']
+            gender = request.form['gender']
+            ids = request.form['ids']
+            
+            appNeo.updateactor(gender, nombres, ids, profile, age)
+                
     return render_template('editarMovie.html')
 
 @app.route('/editUser', methods=['GET', 'POST'])
 def editUser():
+    
+    if request.method == 'POST':
+        if request.form['submit'] == 'Crear':
+            # Lógica para realizar la creación en la base de datos
+            name = request.form['name']
+            country = request.form['country']
+            ids = request.form['ids']
+            age = request.form['age']
+            gender = request.form['gender']
+            
+            appNeo.createuser(gender,name,ids,country,age)
+            
+        elif request.form['submit'] == 'Eliminar':
+            # Lógica para realizar la eliminación en la base de datos
+            pass
+        elif request.form['submit'] == 'Realizar actualizacion':
+            # Lógica para realizar la actualización en la base de datos
+            name = request.form['name']
+            country = request.form['country']
+            ids = request.form['ids']
+            age = request.form['age']
+            gender = request.form['gender']
+            
+            appNeo.updateuser(gender,name,ids,country,age)
+
+    
     return render_template('editarUser.html')
 
 @app.route('/search', methods=['GET', 'POST'])
@@ -107,6 +210,14 @@ def consulta():
 
 @app.route('/update', methods=['GET', 'POST'])
 def update():
+    label = request.form['label']
+    old_property = request.form['old_property']
+    old_value = request.form['old_value']
+    new_property = request.form['new_property']
+    new_value = request.form['new_value']
+    
+    appNeo.update(label, old_property,old_value,new_property,new_value)
+
     return render_template('update.html')
 
 @app.route('/editPlatform', methods=['GET', 'POST'])
