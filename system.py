@@ -110,7 +110,7 @@ class App:
     def updatestaff(self, ids,Email, Gender, Name, Nationality, Rol):
         query = """
         MATCH (p:staff {ID: $ids})
-        SET p.Email = $Email,
+        SET p.Email = $Email, 
             p.Gender = $Gender,
             p.Name = $Name,
             p.Nationality = $Nationality,
