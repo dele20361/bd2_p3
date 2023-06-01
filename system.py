@@ -635,6 +635,15 @@ class App:
 
     # ----------------------------------------------------- START Favorites ----------------------------------------------------- #
 
+    def agregarRelacion(self, pelicula_id,usuario_id,tipo):
+        with self.driver.session(database="neo4j") as session:
+            # Crear el query para agregar la relación
+            query = f"""
+                MATCH (p:Pelicula {{id: '{pelicula_id}'}}), (u:Usuario {{id: '{usuario_id}'}})
+                CREATE (u)-[:{tipo}]->(p)
+            """
+            session.run(query)
+        
     def delete_Favorites_relationship(self, user_id, movie_id):
         '''
             Eliminar relación Favorites entre user y movie.
