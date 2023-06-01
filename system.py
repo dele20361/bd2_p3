@@ -102,9 +102,9 @@ class App:
             m.vote_average = $vote_average
         """
 
-    #     with self.driver.session(database="neo4j") as session:
-    #         session.run(query, adult=adult, genres=genres, ids=ids, language=language, company=company,
-    #                     datetime=datetime, title=title, vote_average=vote_average)
+        with self.driver.session(database="neo4j") as session:
+            session.run(query, adult=adult, genres=genres, ids=ids, language=language, company=company,
+                        datetime=datetime, title=title, vote_average=vote_average)
     
     #-- staff
     def updatestaff(self, ids,Email, Gender, Name, Nationality, Rol):
