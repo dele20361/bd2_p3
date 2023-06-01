@@ -65,6 +65,7 @@ def homepage():
         titlesContent.append('...')
     if len(titlesContent) > 20:
         titlesContent = titlesContent[:20]
+        
 @app.route('/agregarRelacion', methods=['POST'])
 def agregarRelacion():
     # Obtener el ID de la película y el ID del usuario en sesión desde los datos enviados por POST
