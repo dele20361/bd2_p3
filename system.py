@@ -631,7 +631,7 @@ class App:
     
     # ------------------------------------------------------ START MyList ------------------------------------------------------- #
 
-    def delete_mylist_relationship(self, user_id, movie_id):
+    def delete_mylist_relationship(self, user_id, movie_title):
         '''
             Eliminar relación MyList entre user y movie.
 
@@ -645,13 +645,15 @@ class App:
             Validación.
 
         '''
+        print(user_id)
+        print(movie_title)
         with self.driver.session(database="neo4j") as session:
             query = (
-                "MATCH (u:user {id: $user_id})-[r:MyList]->(m:Movie {id: $movie_id}) "
+                "MATCH (u:user {ID: $user_id})-[r:MyList]->(m:Movie {title: $movie_title}) "
                 "DELETE r"
             )
-            session.run(query, user_id=user_id, movie_id=movie_id)
-
+            print(query)
+            session.run(query, user_id=user_id, movie_title=movie_title)
     
     def find_mylist_by_relationship_property(self, property_key, property_value):
         '''

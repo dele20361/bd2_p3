@@ -51,22 +51,12 @@
                           <text>{{watchedTitles[0]}}</text>
                         </div>
                     </div>
-                    <div class="opt2">
-                        <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="card" id="List2">
                     <div class="content">
                         <div class="title">
                           <text>{{watchedTitles[1]}}</text>
-                        </div>
-                    </div>
-                    <div class="opt2">
-                        <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
                         </div>
                     </div>
                 </div>
@@ -77,11 +67,6 @@
                           <text>{{watchedTitles[2]}}</text>
                         </div>
                     </div>
-                    <div class="opt2">
-                        <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="card" id="List4">
@@ -90,22 +75,12 @@
                           <text>{{watchedTitles[3]}}</text>
                         </div>
                     </div>
-                    <div class="opt2">
-                        <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="card" id="List5">
                     <div class="content">
                         <div class="title">
                           <text>{{watchedTitles[4]}}</text>
-                        </div>
-                    </div>
-                    <div class="opt2">
-                        <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
                         </div>
                     </div>
                 </div>
@@ -120,12 +95,22 @@
                           <text>{{myListContentTitles[0]}}</text>
                         </div>
                     </div>
+                    <div class="opt2">
+                        <div class="remove">
+                            <button class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  " onclick="sendMovieTitleMyList('{{myListContentTitles[0]}}')"></button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card" id="List2">
                     <div class="content">
                         <div class="title">
                           <text>{{myListContentTitles[1]}}</text>
+                        </div>
+                    </div>
+                    <div class="opt2">
+                        <div class="remove">
+                            <button class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  " onclick="sendMovieTitleMyList('{{myListContentTitles[1]}}')"></button>
                         </div>
                     </div>
                 </div>
@@ -136,6 +121,11 @@
                           <text>{{myListContentTitles[2]}}</text>
                         </div>
                     </div>
+                    <div class="opt2">
+                        <div class="remove">
+                            <button class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  " onclick="sendMovieTitleMyList('{{myListContentTitles[2]}}')"></button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card" id="List4">
@@ -144,12 +134,22 @@
                           <text>{{myListContentTitles[3]}}</text>
                         </div>
                     </div>
+                    <div class="opt2">
+                        <div class="remove">
+                            <button class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  " onclick="sendMovieTitleMyList('{{myListContentTitles[3]}}')"></button>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card" id="List5">
                     <div class="content">
                         <div class="title">
                           <text>{{myListContentTitles[4]}}</text>
+                        </div>
+                    </div>
+                    <div class="opt2">
+                        <div class="remove">
+                            <button class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  " onclick="sendMovieTitleMyList('{{myListContentTitles[4]}}')"></button>
                         </div>
                     </div>
                 </div>
@@ -634,6 +634,26 @@
 
                 // Agregar el campo de entrada al formulario
                 form.appendChild(favoritesTitleInput);
+
+                // Agregar el formulario al cuerpo del documento y enviarlo
+                document.body.appendChild(form);
+                form.submit();
+            }
+
+            function sendMovieTitleMyList(myListTitle) {
+                // Crear un formulario oculto
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/deleteMyList';
+
+                // Crear un campo de entrada para el favoritesTitle
+                var myListTitleInput = document.createElement('input');
+                myListTitleInput.type = 'hidden';
+                myListTitleInput.name = 'myListTitle';
+                myListTitleInput.value = myListTitle;
+
+                // Agregar el campo de entrada al formulario
+                form.appendChild(myListTitleInput);
 
                 // Agregar el formulario al cuerpo del documento y enviarlo
                 document.body.appendChild(form);

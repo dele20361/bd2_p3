@@ -110,6 +110,15 @@ def deleteMyFavorites():
         appNeo.delete_Favorites_relationship(userID, favoritesTitle)
         return redirect(url_for('homepage'))
 
+@app.route('/deleteMyList', methods=['GET', 'POST'])
+def deleteMyList():
+    if request.method == 'POST':
+        myListTitle = request.form['myListTitle']
+        
+        # Eliminar relación
+        appNeo.delete_mylist_relationship(userID, myListTitle)
+        return redirect(url_for('homepage'))
+
 @app.route('/editMovie', methods=['GET', 'POST'])
 def editMovie():
     if request.method == 'POST':
