@@ -52,7 +52,7 @@ class App:
 
 
     #--- crear staff
-    def createstaff(self, ids, Email, Gender, Name, Nationality, Rol):
+    def createstaff(self, Name, Gender,ids, Nationality, Rol, Email):
         query = """
         CREATE (p:staff {
         ids: $ids,
@@ -63,24 +63,26 @@ class App:
         Rol: $Rol
         })
         """
-
+        
         with self.driver.session(database="neo4j") as session:
             session.run(query, ids=ids, Email=Email, Gender=Gender, Name=Name, Nationality=Nationality, Rol=Rol)
+            print('se creo')
         
     #--- crear actor
-    def createactor(self, nombres,profile,age,gender,ids):
+    def createactor(self, Name,Profile_Path, Age,Gender, ids):
         query = """
-        CREATE (a:actors {
-        Name: $nombres,
-        Profile Path: $profile,
-        Age: $age,
-        Gender: $gender,
-        ID	: $ids
+        CREATE (a:Actor {
+        ids: $ids,
+        Age: $Age,
+        Gender: $Gender,
+        Name: $Name,
+        Profile_Path: $Profile_Path
         })
         """
+        
         with self.driver.session(database="neo4j") as session:
-            session.run(query, nombres=nombres, profile=profile, age=age, gender=gender, ids=ids)
-            
+            session.run(query, ids=ids, Age=Age, Gender=Gender, Name=Name, Profile_Path=Profile_Path)
+                
     
     
     # ------------------------------------------------------ UPDATE -----------------------------------------
@@ -88,17 +90,17 @@ class App:
     #----------editarmovie
     
     #--pelicula
-    # def updatemovie(self,adult,genres,ids,Lenguage, nombres, datetime,title,vote_average):
-    #     query = """
-    #     MATCH (m:Movie {ids: $ids})
-    #     SET m.adult = $adult,
-    #         m.genres = $genres,
-    #         m.language = $language,
-    #         m.company = $company,
-    #         m.datetime = $datetime,
-    #         m.title = $title,
-    #         m.vote_average = $vote_average
-    #     """
+    def updatemovie(self,adult, genres, ids, language, company, datetime, title, vote_average):
+        query = """
+        MATCH (m:Movie {ids: $ids})
+        SET m.adult = $adult,
+            m.genres = $genres,
+            m.language = $language,
+            m.company = $company,
+            m.datetime = $datetime,
+            m.title = $title,
+            m.vote_average = $vote_average
+        """
 
     #     with self.driver.session(database="neo4j") as session:
     #         session.run(query, adult=adult, genres=genres, ids=ids, language=language, company=company,
