@@ -48,6 +48,75 @@
                 <div class="card" id="List1",  >
                     <div class="content">
                         <div class="title">
+                          <text>{{watchedTitles[0]}}</text>
+                        </div>
+                    </div>
+                    <div class="opt2">
+                        <div class="remove">
+                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="List2">
+                    <div class="content">
+                        <div class="title">
+                          <text>{{watchedTitles[1]}}</text>
+                        </div>
+                    </div>
+                    <div class="opt2">
+                        <div class="remove">
+                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="List3">
+                    <div class="content">
+                        <div class="title">
+                          <text>{{watchedTitles[2]}}</text>
+                        </div>
+                    </div>
+                    <div class="opt2">
+                        <div class="remove">
+                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="List4">
+                    <div class="content">
+                        <div class="title">
+                          <text>{{watchedTitles[3]}}</text>
+                        </div>
+                    </div>
+                    <div class="opt2">
+                        <div class="remove">
+                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="List5">
+                    <div class="content">
+                        <div class="title">
+                          <text>{{watchedTitles[4]}}</text>
+                        </div>
+                    </div>
+                    <div class="opt2">
+                        <div class="remove">
+                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <h2> Mi lista </h2>
+            <div class="container" >
+                <div class="card" id="List1",  >
+                    <div class="content">
+                        <div class="title">
                           <text>{{myListContentTitles[0]}}</text>
                         </div>
                     </div>
@@ -86,7 +155,8 @@
                 </div>
 
             </div>
-            <h2> Mi lista </h2>
+
+            <h2> Mis favoritos </h2>
             <div class="container" >
                 <div class="card" id="List1",  >
                     <div class="content">
@@ -96,7 +166,7 @@
                     </div>
                     <div class="opt2">
                         <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
+                            <button class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  " onclick="sendMovieTitle('{{favoritesTitles[0]}}')"></button>
                         </div>
                     </div>
                 </div>
@@ -109,7 +179,7 @@
                     </div>
                     <div class="opt2">
                         <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
+                            <button class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  " onclick="sendMovieTitle('{{favoritesTitles[1]}}')"></button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +192,7 @@
                     </div>
                     <div class="opt2">
                         <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
+                            <button class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  " onclick="sendMovieTitle('{{favoritesTitles[2]}}')"></button>
                         </div>
                     </div>
                 </div>
@@ -135,7 +205,7 @@
                     </div>
                     <div class="opt2">
                         <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
+                            <button class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  " onclick="sendMovieTitle('{{favoritesTitles[3]}}')"></button>
                         </div>
                     </div>
                 </div>
@@ -148,76 +218,7 @@
                     </div>
                     <div class="opt2">
                         <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <h2> Mis favoritos </h2>
-            <div class="container" >
-                <div class="card" id="List1",  >
-                    <div class="content">
-                        <div class="title">
-                          <text>title</text>
-                        </div>
-                    </div>
-                    <div class="opt2">
-                        <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" id="List2">
-                    <div class="content">
-                        <div class="title">
-                          <text>title</text>
-                        </div>
-                    </div>
-                    <div class="opt2">
-                        <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" id="List3">
-                    <div class="content">
-                        <div class="title">
-                          <text>title</text>
-                        </div>
-                    </div>
-                    <div class="opt2">
-                        <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" id="List4">
-                    <div class="content">
-                        <div class="title">
-                          <text>title</text>
-                        </div>
-                    </div>
-                    <div class="opt2">
-                        <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card" id="List5">
-                    <div class="content">
-                        <div class="title">
-                          <text>title</text>
-                        </div>
-                    </div>
-                    <div class="opt2">
-                        <div class="remove">
-                            <i class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  "></i>
+                            <button class="fa fa-minus" style="font-size:20px; color: rgb(86, 85, 85);  " onclick="sendMovieTitle('{{favoritesTitles[4]}}')"></button>
                         </div>
                     </div>
                 </div>
@@ -618,6 +619,26 @@
             logoOut.onclick = function() {
                 window.location.href = "{{ url_for('login') }}";
             };
+
+            function sendMovieTitle(favoritesTitle) {
+                // Crear un formulario oculto
+                var form = document.createElement('form');
+                form.method = 'POST';
+                form.action = '/deleteMyFavorites';
+
+                // Crear un campo de entrada para el favoritesTitle
+                var favoritesTitleInput = document.createElement('input');
+                favoritesTitleInput.type = 'hidden';
+                favoritesTitleInput.name = 'favoritesTitle';
+                favoritesTitleInput.value = favoritesTitle;
+
+                // Agregar el campo de entrada al formulario
+                form.appendChild(favoritesTitleInput);
+
+                // Agregar el formulario al cuerpo del documento y enviarlo
+                document.body.appendChild(form);
+                form.submit();
+            }
           </script>
 
 </body>

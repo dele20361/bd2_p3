@@ -163,6 +163,32 @@ class App:
             result = session.run(query)
     # ------------------------------------------------------- START MOVIE ------------------------------------------------------- #
 
+    def delete_movie_by_properties(self, properties):
+        '''
+            Eliminar una película dadas las propiedades.
+
+            Parámetros
+            ----------
+            - properties: Diccionario de propiedades que filtrarán los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = "MATCH (m:Movie) WHERE "
+
+            for key, value in properties.items():
+                query += f"m.{key} = ${key} AND "
+
+            query = query[:-4]
+            query += "DELETE m"
+
+            print(query)
+            result = session.run(query, **properties)
+            return result
+
     def delete_movie_by_property(self, property_key, property_value):
         '''
             Eliminar una película dada una key.
@@ -229,6 +255,32 @@ class App:
     # --------------------------------------------------------------------------------------------------------------------------- #
     
     # ------------------------------------------------------- START ACTOR ------------------------------------------------------- #
+
+    def delete_actor_by_properties(self, properties):
+        '''
+            Eliminar un actor dadas las propiedades.
+
+            Parámetros
+            ----------
+            - properties: Diccionario de propiedades que filtrarán los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = "MATCH (m:actors) WHERE "
+
+            for key, value in properties.items():
+                query += f"m.{key} = ${key} AND "
+
+            query = query[:-4]
+            query += "DELETE m"
+
+            print(query)
+            result = session.run(query, **properties)
+            return result
 
     def delete_actor_by_property(self, property_key, property_value):
         '''
@@ -297,6 +349,32 @@ class App:
     
     # ------------------------------------------------------- START STAFF ------------------------------------------------------- #
 
+    def delete_staff_by_properties(self, properties):
+        '''
+            Eliminar un staff dadas las propiedades.
+
+            Parámetros
+            ----------
+            - properties: Diccionario de propiedades que filtrarán los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = "MATCH (m:staff) WHERE "
+
+            for key, value in properties.items():
+                query += f"m.{key} = ${key} AND "
+
+            query = query[:-4]
+            query += "DELETE m"
+
+            print(query)
+            result = session.run(query, **properties)
+            return result
+
     def delete_staff_by_property(self, property_key, property_value):
         '''
             Eliminar un staff dada una key.
@@ -363,6 +441,32 @@ class App:
     # --------------------------------------------------------------------------------------------------------------------------- #
     
     # -------------------------------------------------------  START USER ------------------------------------------------------- #
+
+    def delete_user_by_properties(self, properties):
+        '''
+            Eliminar un user dadas las propiedades.
+
+            Parámetros
+            ----------
+            - properties: Diccionario de propiedades que filtrarán los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = "MATCH (m:user) WHERE "
+
+            for key, value in properties.items():
+                query += f"m.{key} = ${key} AND "
+
+            query = query[:-4]
+            query += "DELETE m"
+
+            print(query)
+            result = session.run(query, **properties)
+            return result
 
     def delete_user_by_property(self, property_key, property_value):
         '''
@@ -431,6 +535,33 @@ class App:
     
     # ----------------------------------------------------- START PLATFORM ------------------------------------------------------ #
 
+    
+    def delete_platform_by_properties(self, properties):
+        '''
+            Eliminar una platform dadas las propiedades.
+
+            Parámetros
+            ----------
+            - properties: Diccionario de propiedades que filtrarán los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = "MATCH (m:platform) WHERE "
+
+            for key, value in properties.items():
+                query += f"m.{key} = ${key} AND "
+
+            query = query[:-4]
+            query += "DELETE m"
+
+            print(query)
+            result = session.run(query, **properties)
+            return result
+    
     def delete_platform_by_property(self, property_key, property_value):
         '''
             Eliminar un platform dada una key.
@@ -633,7 +764,7 @@ class App:
 
     # ----------------------------------------------------- START Favorites ----------------------------------------------------- #
 
-    def delete_Favorites_relationship(self, user_id, movie_id):
+    def delete_Favorites_relationship(self, user_id, movie_title):
         '''
             Eliminar relación Favorites entre user y movie.
 
@@ -649,10 +780,10 @@ class App:
         '''
         with self.driver.session(database="neo4j") as session:
             query = (
-                "MATCH (u:user {id: $user_id})-[r:Favorites]->(m:Movie {id: $movie_id}) "
+                "MATCH (u:user {ID: $user_id})-[r:Favorites]->(m:Movie {title: $movie_title})"
                 "DELETE r"
             )
-            session.run(query, user_id=user_id, movie_id=movie_id)
+            session.run(query, user_id=user_id, movie_title=movie_title)
 
     
     def find_Favorites_by_relationship_property(self, property_key, property_value):
@@ -1398,6 +1529,35 @@ class App:
 
     # --------------------------------------------------------------------------------------------------------------------------- #
 
+
+    # ------------------------------------------------------ START Watched ------------------------------------------------------ #
+    
+    def find_Watched_by_user_property_return_movie(self, property_key, property_value):
+        '''
+            Obtener información de la película de la relación según propiedad del usuario.
+
+            Parámetros
+            ----------
+            - property_key: Nombre de la propiedad que filtrará los nodos a eliminar.
+            - property_value: Valor de la propiedad que filtrará los nodos a eliminar.
+
+            Returns
+            -------
+            Validación.
+
+        '''
+        with self.driver.session(database="neo4j") as session:
+            query = (
+                "MATCH (u:user)-[r:Watched]->(m:Movie) "
+                "WHERE u." + property_key + " = $" + property_key + " "
+                "RETURN m"
+            )
+            result = session.run(query, **{property_key: property_value})
+            return [record["m"] for record in result]
+
+    # --------------------------------------------------------------------------------------------------------------------------- #
+
+
     # -------------------------------------------------- START ejecución query -------------------------------------------------- #
     def execute_query(self, query):
         with self.driver.session(database="neo4j") as session:
@@ -1411,27 +1571,4 @@ if __name__ == "__main__":
     user = "neo4j"
     password = "8_aBrbwezxsQxvPsIhl2UobQu-UQCH65zP6Da58Nplo"
     app = App(uri, user, password)
-    # app.create_friendship("Alice", "David")
-    # result = app.find_movie_by_property('title', 'Toy Story')
-    # result = app.delete_movie_by_property('title', 'Toy Waiting to Exhale')
-
-    # deletedMovie = {
-    #     'original_language': "en",
-    #     'release_date': '1995-12-22T00:00:00Z',
-    #     'production_companies': "[{'name': 'Twentieth Century Fox Film Corporation', 'id': 306}]",
-    #     'genres': "[{'id': 35, 'name': 'Comedy'}, {'id': 18, 'name': 'Drama'}, {'id': 10749, 'name': 'Romance'}]",
-    #     'vote_average': 6.1,
-    #     'id': 31357,
-    #     'title': "Waiting to Exhale",
-    #     'adult': False
-    # }
-
-    # result = app.find_actor_by_property('Name', 'Melinda West')
-    result = app.find_myList()
-    node = result[0]
-    # print(node.keys())
-    print(len(result))
-    # print(node)
-    # for i in result[0]:
-    #     print(i + '\n')
     app.close()

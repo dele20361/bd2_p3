@@ -1,3 +1,5 @@
+import ast
+from platform import release
 from flask import Flask, render_template, request, redirect, url_for
 from system import App
 
@@ -55,6 +57,7 @@ def register():
 
 @app.route('/homepage', methods=['GET', 'POST'])
 def homepage():
+
     # Obtener contenido de plataforma
     moviesContent = appNeo.find_Available_In_by_platform_property_return_movie_info('name', global_platform_name)
     titlesContent = [i['title'] for i in moviesContent]
@@ -87,9 +90,25 @@ def homepage():
     if len(favoritesTitles) > 5:
         favoritesTitles = favoritesTitles[:5]
 
-    return render_template('homepage.html', titlesContent=titlesContent, myListContentTitles=myListContentTitles, myRecosTitles=myRecosTitles, favoritesTitles=favoritesTitles)
+    # Obtener Watched
+    watched = appNeo.find_Watched_by_user_property_return_movie('ID', userID)
+    watchedTitles = [i['title'] for i in watched]
+    while len(watchedTitles) < 5:
+        watchedTitles.append('...')
+    if len(watchedTitles) > 5:
+        watchedTitles = watchedTitles[:5]
 
+    return render_template('homepage.html', titlesContent=titlesContent, myListContentTitles=myListContentTitles, myRecosTitles=myRecosTitles, favoritesTitles=favoritesTitles, watchedTitles=watchedTitles)
 
+@app.route('/deleteMyFavorites', methods=['GET', 'POST'])
+def deleteMyFavorites():
+    if request.method == 'POST':
+        favoritesTitle = request.form['favoritesTitle']
+        print(favoritesTitle)
+        
+        # Eliminar relación
+        appNeo.delete_Favorites_relationship(userID, favoritesTitle)
+        return redirect(url_for('homepage'))
 
 @app.route('/editMovie', methods=['GET', 'POST'])
 def editMovie():
@@ -123,17 +142,99 @@ def editMovie():
         elif request.form['submit'] == 'Crear Actor':
             # Lógica para crear un actor en la base de datos
             # Extraer los datos del formulario
-            nombres = request.form['nombres']
+            nombres = request.form['nombresA']
             profile = request.form['profile']
             age = request.form['age']
-            gender = request.form['gender']
+            gender = request.form['genderA']
             ids = request.form['ids']
             # Ejecutar el query de creación de actor en la base de datos
             appNeo.createactor(nombres, profile, age, gender, ids)
             
-        elif request.form['submit'] == 'Eliminar':
+        elif request.form['submit'] == 'Eliminar Pelicula':
             # Lógica para realizar la eliminación en la base de datos
-            pass
+            adult = request.form['adult']
+            genres = request.form['genres']
+            ids = request.form['ids']
+            language = request.form['lenguage']
+            company = request.form['nombres']
+            datetime = request.form['datetime']
+            title = request.form['title']
+            vote_average = request.form['vote_average']
+            
+            toEval = {'adult':adult, 'genres':genres, 'id':ids, 'original_language':language, 'production_companies':company, 'release_date':datetime, 'title':title, 'vote_average':vote_average}
+            
+            # Obtener propiedades que tengan contenido
+            non_empty_properties = {key: value for key, value in toEval.items() if value}
+            non_empty_dict = {key: non_empty_properties[key] for key in non_empty_properties}
+
+            # Cast al tipo de dato correcto
+            keys = non_empty_dict.keys()
+            if 'adult' in keys:
+                non_empty_dict['adult'] = bool(non_empty_dict['adult'])
+            if 'release_date' in keys:
+                non_empty_dict['release_date'] = datetime.fromisoformat(non_empty_dict['release_date'])
+            if 'id' in keys:
+                non_empty_dict['id'] = int(non_empty_dict['id'])
+            if 'vote_average' in keys:
+                non_empty_dict['vote_average'] = float(non_empty_dict['vote_average'])
+            
+            if len(keys) > 0:
+                appNeo.delete_movie_by_properties(non_empty_dict)
+
+        elif request.form['submit'] == 'Eliminar Staff':
+            # Lógica para realizar la eliminación en la base de datos
+            nombres = request.form['nombres']
+            gender = (request.form['gender'])
+            ids = (request.form['ids'])
+            nationality = request.form['nationality']
+            rol = request.form['rol']
+            correo = request.form['correo']
+
+            toEval = {'Name': nombres, 'Gender': gender, 'ID': ids, 'Nationality': nationality, 'Rol': rol, 'Email': correo}
+
+            # Obtener propiedades que tengan contenido
+            non_empty_properties = {key: value for key, value in toEval.items() if value}
+            non_empty_dict = {key: non_empty_properties[key] for key in non_empty_properties}
+
+            # Cast al tipo de dato correcto
+            keys = non_empty_dict.keys()
+            if 'ID' in keys:
+                non_empty_dict['ID'] = int(non_empty_dict['ID'])
+            if 'Gender' in keys:
+                non_empty_dict['Gender'] = int(non_empty_dict['Gender'])
+
+            if len(keys) > 0:
+                appNeo.delete_staff_by_properties(non_empty_dict)
+
+        elif request.form['submit'] == 'Eliminar Actor':
+            # Lógica para realizar la eliminación en la base de datos
+            nombres = request.form['nombresA']
+            profile = request.form['profile']
+            age = request.form['age']
+            gender = request.form['genderA']
+            ids = request.form['ids']
+
+            toEval = {'Name': nombres, '`Profile Path`': profile, 'Age': age, 'Gender': gender, 'ID': ids}
+
+            print(toEval)
+            # Obtener propiedades que tengan contenido
+            non_empty_properties = {key: value for key, value in toEval.items() if value}
+            non_empty_dict = {key: non_empty_properties[key] for key in non_empty_properties}
+
+            # Cast al tipo de dato correcto
+            keys = non_empty_dict.keys()
+            if 'ID' in keys:
+                non_empty_dict['ID'] = int(non_empty_dict['ID'])
+            if 'Gender' in keys:
+                non_empty_dict['Gender'] = int(non_empty_dict['Gender'])
+            
+            print(non_empty_dict)
+
+            if len(keys) > 0:
+                appNeo.delete_actor_by_properties(non_empty_dict)
+            else:
+                print('VACIO')
+
         elif request.form['submit'] == 'Actualizar Pelicula':
             # Lógica para actualizar los datos de la película
             adult = request.form['adult']
@@ -160,10 +261,10 @@ def editMovie():
             
         elif request.form['submit'] == 'Actualizar Actor':
             # Lógica para actualizar los datos del actor
-            nombres = request.form['nombres']
+            nombres = request.form['nombresA']
             profile = request.form['profile']
             age = request.form['age']
-            gender = request.form['gender']
+            gender = request.form['genderA']
             ids = request.form['ids']
             
             appNeo.updateactor(gender, nombres, ids, profile, age)
@@ -186,7 +287,35 @@ def editUser():
             
         elif request.form['submit'] == 'Eliminar':
             # Lógica para realizar la eliminación en la base de datos
-            pass
+            name = request.form['name']
+            country = request.form['country']
+            ids = request.form['ids']
+            age = request.form['age']
+            gender = request.form['gender']
+
+            toEval = {'Name': name, 'Age': age, 'Gender': gender, 'ID': ids, 'Country': country}
+
+            # Obtener propiedades que tengan contenido
+            non_empty_properties = {key: value for key, value in toEval.items() if value}
+            non_empty_dict = {key: non_empty_properties[key] for key in non_empty_properties}
+
+            # Cast al tipo de dato correcto
+            keys = non_empty_dict.keys()
+            if 'ID' in keys:
+                non_empty_dict['ID'] = int(non_empty_dict['ID'])
+            if 'Age' in keys:
+                non_empty_dict['Age'] = bool(non_empty_dict['Age'])
+            if 'Gender' in keys:
+                non_empty_dict['Gender'] = int(non_empty_dict['Gender'])
+            
+            print(non_empty_dict)
+
+            if len(keys) > 0:
+                appNeo.delete_user_by_properties(non_empty_dict)
+            else:
+                print('VACIO')
+
+
         elif request.form['submit'] == 'Realizar actualizacion':
             # Lógica para realizar la actualización en la base de datos
             name = request.form['name']
@@ -202,7 +331,21 @@ def editUser():
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
-    return render_template('search.html')
+    return render_template('search.html', title='')
+
+@app.route("/searchMovie", methods=['GET', 'POST'])
+def searchMovie():
+    if request.method == 'POST':
+        # Obtener contenido de plataforma
+        moviesContent = appNeo.find_movies()
+        titlesContent = [i['title'] for i in moviesContent]
+
+        title = request.form['searchBar']
+
+        if title in titlesContent:
+            return render_template('search.html', title=title)
+        else:
+            return render_template('search.html', title='No se encontró el título en la base de datos.')
 
 @app.route('/consulta', methods=['GET', 'POST'])
 def consulta():
