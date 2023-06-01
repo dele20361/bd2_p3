@@ -130,10 +130,33 @@ h2{
     background-color: #e68a2e;
     color: white;
     border-radius: 4px;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
+.Conteiner_btn .botonss{
+    width: 20%;
+    border: none;
+    padding: 12px;
+    margin: 16px 0px;
+    font-size: 16px;
+    background-color: #e68a2e;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    align-items: center;
+    justify-content:center;
+    display: flex;
+    cursor: pointer;
+
+}
+
 .Conteiner_btn .botons:hover{
+    background-color:rgb(243, 168, 27);
+    color: black;
+}
+
+.Conteiner_btn .botonss:hover{
     background-color:rgb(243, 168, 27);
     color: black;
 }
@@ -194,6 +217,7 @@ h2{
     background-color: #e68a2e;
     color: white;
     border-radius: 4px;
+    cursor: pointer;
     transition: background-color 0.3s;
 }
 
@@ -218,4 +242,9 @@ h2{
 select {
     font-size: 13px;
     color: lightslategray
+}
+
+.botonss a{
+    text-decoration: none;
+    color:white;
 }

@@ -13,6 +13,7 @@
         <div class = "fullscreen">
             <form method="POST">
                 <div class="container" >
+                    <form method="POST">
                     <div class="content">
                         <input class="controls" type="number" name="ids" id="ids" placeholder="Ingrese un numero">
                         <input class="controls" type="text" name="name" id="name" placeholder="Ingrese nombre">
@@ -21,15 +22,16 @@
                         <input class="controls" type="text" name="image_link" id="image_link" placeholder="Ingrese link de la imagen">
                         <input class="controls" type="number" name="profit" id="profit" placeholder="Ingrese ganancia">
                     </div>
-
                     <div class="Conteiner_btn">
                         <input class="botons" name='submit' type="submit" value="Crear">
                         <input class="botons" name='submit' type="submit" value="Eliminar">
-                        <input class="botons" name='submit' type="submit" value="Cancelar" id="salir">
+                        <div class="botonss" name='submit' id="salir">
+                            <a href="{{ url_for('platfomr') }}">Cancelar</a>
+                        </div>
                     </div>
+                
                 </div>
-
-                <h2> Actualizar </h2>
+                <h2> Actualizar plataforma </h2>
                 <div class="container2" >
                     <div class="content2">
                         <text> Datos viejos </text>
@@ -64,13 +66,6 @@
                     </div>
                 </div>
             </form>
-            <script>
-                function redirectToplatform() {
-                    window.location.href = "{{ url_for('platformr') }}";
-
-                }
-            </script>
-
     </body>  
 </html>
 
