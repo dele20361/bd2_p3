@@ -1,6 +1,5 @@
-import ast
-from platform import release
 from flask import Flask, render_template, request, redirect, url_for
+from dateutil import parser
 from system import App
 
 app = Flask(__name__, template_folder='template', static_folder='static')
@@ -130,21 +129,37 @@ def editMovie():
             ids = request.form['ids']
             language = request.form['lenguage']
             company = request.form['nombres']
-            datetime = request.form['datetime']
+            date_str = request.form['datetime']
             title = request.form['title']
             vote_average = request.form['vote_average']
+
+            # Casting a tipo de dato correcto
+            ids = int(ids)
+            adult = bool(adult)
+            vote_average = float(vote_average)
+            
+            parsed_date = parser.isoparse(date_str)
+            timestamp = parsed_date.strftime("%Y-%m-%dT%H:%M:%SZ")
+
             # Ejecutar el query de creación de película en la base de datos
-            appNeo.createmovie(adult, genres, ids, language, company, datetime, title, vote_average)
+            appNeo.createmovie(adult, genres, ids, language, company, timestamp, title, vote_average)
             
         elif request.form['submit'] == 'Crear Staff':
             # Lógica para crear un miembro del staff en la base de datos
             # Extraer los datos del formulario
-            nombres = request.form['nombres']
+            nombres = request.form['nombresS']
             gender = request.form['gender']
-            ids = request.form['ids']
+            ids = request.form['idsS']
             nationality = request.form['nationality']
             rol = request.form['rol']
             correo = request.form['correo']
+
+            # Casting a tipo de dato correcto
+            print(ids)
+            print(type(ids))
+            ids = int(ids)
+            gender = int(gender)
+
             # Ejecutar el query de creación de miembro del staff en la base de datos
             appNeo.createstaff(nombres, gender, ids, nationality, rol, correo)
                    
@@ -156,6 +171,12 @@ def editMovie():
             age = request.form['age']
             gender = request.form['genderA']
             ids = request.form['ids']
+
+            # Casting a tipo de dato correcto
+            ids = int(ids)
+            gender = int(gender)
+            age = int(age)
+
             # Ejecutar el query de creación de actor en la base de datos
             appNeo.createactor(nombres, profile, age, gender, ids)
             
@@ -192,9 +213,9 @@ def editMovie():
 
         elif request.form['submit'] == 'Eliminar Staff':
             # Lógica para realizar la eliminación en la base de datos
-            nombres = request.form['nombres']
+            nombres = request.form['nombresS']
             gender = (request.form['gender'])
-            ids = (request.form['ids'])
+            ids = (request.form['idsS'])
             nationality = request.form['nationality']
             rol = request.form['rol']
             correo = request.form['correo']
@@ -251,22 +272,34 @@ def editMovie():
             ids = request.form['ids']
             language = request.form['lenguage']
             company = request.form['nombres']
-            datetime = request.form['datetime']
+            date_str = request.form['datetime']
             title = request.form['title']
             vote_average = request.form['vote_average']
+
+            # Casting a tipo de datos correcto
+            ids = int(ids)
+            adult = bool(adult)
+            vote_average = float(vote_average)
+
+            parsed_date = parser.isoparse(date_str)
+            timestamp = parsed_date.strftime("%Y-%m-%dT%H:%M:%SZ")
             
-            appNeo.updatemovie(adult, genres, ids, language, company, datetime, title, vote_average)
+            appNeo.updatemovie(adult, genres, ids, language, company, timestamp, title, vote_average)
             
         elif request.form['submit'] == 'Actualizar Staff':
             # Lógica para actualizar los datos del staff
-            nombres = request.form['nombres']
+            nombres = request.form['nombresS']
             gender = request.form['gender']
-            ids = request.form['ids']
+            ids = request.form['idsS']
             nationality = request.form['nationality']
             rol = request.form['rol']
             correo = request.form['correo']
+
+            # Casting a tipo de dato correcto
+            ids = int(ids)
+            gender = int(gender)
             
-            appNeo.updatestaff(gender, nombres, ids, nationality, rol, correo)
+            appNeo.updatestaff(ids, correo, gender, nombres, nationality, rol)
             
         elif request.form['submit'] == 'Actualizar Actor':
             # Lógica para actualizar los datos del actor
@@ -275,6 +308,11 @@ def editMovie():
             age = request.form['age']
             gender = request.form['genderA']
             ids = request.form['ids']
+
+            # Casting a tipo de dato correcto
+            ids = int(ids)
+            gender = int(gender)
+            age = int(age)
             
             appNeo.updateactor(gender, nombres, ids, profile, age)
                 

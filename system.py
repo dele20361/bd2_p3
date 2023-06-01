@@ -20,7 +20,7 @@ class App:
         CREATE (u:user {
         Gender: $Gender,
         Name: $Name,
-        ids: $ids,
+        ID: $ids,
         Country: $Country,
         Age: $Age
         })
@@ -37,10 +37,10 @@ class App:
         CREATE (m:Movie {
         adult: $adult,
         genres: $genres,
-        ids: $ids,
-        language: $language,
-        company: $company,
-        datetime: $datetime,
+        id: $ids,
+        original_language: $language,
+        production_companies: $company,
+        release_date: $datetime,
         title: $title,
         vote_average: $vote_average
         })
@@ -55,7 +55,7 @@ class App:
     def createstaff(self, Name, Gender,ids, Nationality, Rol, Email):
         query = """
         CREATE (p:staff {
-        ids: $ids,
+        ID: $ids,
         Email: $Email,
         Gender: $Gender,
         Name: $Name,
@@ -69,10 +69,10 @@ class App:
             print('se creo')
         
     #--- crear actor
-    def createactor(self, Name,Profile_Path, Age,Gender, ids):
+    def createactor(self, Name, Profile_Path, Age,Gender, ids):
         query = """
-        CREATE (a:Actor {
-        ids: $ids,
+        CREATE (a:actors {
+        ID: $ids,
         Age: $Age,
         Gender: $Gender,
         Name: $Name,
@@ -92,12 +92,12 @@ class App:
     #--pelicula
     def updatemovie(self,adult, genres, ids, language, company, datetime, title, vote_average):
         query = """
-        MATCH (m:Movie {ids: $ids})
+        MATCH (m:Movie {id: $ids})
         SET m.adult = $adult,
             m.genres = $genres,
-            m.language = $language,
-            m.company = $company,
-            m.datetime = $datetime,
+            m.original_language = $language,
+            m.production_companies = $company,
+            m.release_date = $datetime,
             m.title = $title,
             m.vote_average = $vote_average
         """
@@ -109,7 +109,7 @@ class App:
     #-- staff
     def updatestaff(self, ids,Email, Gender, Name, Nationality, Rol):
         query = """
-        MATCH (p:staff {ids: $ids})
+        MATCH (p:staff {ID: $ids})
         SET p.Email = $Email,
             p.Gender = $Gender,
             p.Name = $Name,
@@ -125,9 +125,9 @@ class App:
     #-- actor
     def updateactor(self,gender,nombres,ids,profile,age):
         query = """
-        MATCH (a:actors {id: $ids})
-        SET a.gender = $gender, a.nombres = $nombres, a.profile = $profile,
-            a.age = $age
+        MATCH (a:actors {ID: $ids})
+        SET a.Gender = $gender, a.Name = $nombres, a.Profile_Path = $profile,
+            a.Age = $age
         """
 
         parameters = {
@@ -145,7 +145,7 @@ class App:
     
     def updateuser(self, Gender, Name, ids, Country, Age):
         query = """
-        MATCH (u:user {ids: $ids})
+        MATCH (u:user {ID: $ids})
         SET u.Gender = $Gender,
             u.Name = $Name,
             u.Country = $Country,
