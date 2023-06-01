@@ -30,6 +30,8 @@ class App:
 
         with self.driver.session(database="neo4j") as session:
             result = session.run(query, parameters)
+            
+        print('Se creo usuario')
 
     #--- crear movie
     def createmovie(self,adult,genres,ids,language,company,datetime,title,vote_average):
