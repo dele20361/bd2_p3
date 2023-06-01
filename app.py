@@ -52,8 +52,43 @@ def homepage():
 def editMovie():
     if request.method == 'POST':
         if request.form['submit'] == 'Crear':
-            # Lógica para realizar la creación en la base de datos
-            pass
+            if request.form['submit'] == 'Crear Pelicula':
+                # Lógica para crear una película en la base de datos
+                # Extraer los datos del formulario
+                adult = request.form['adult']
+                genres = request.form['genres']
+                ids = request.form['ids']
+                language = request.form['lenguage']
+                company = request.form['nombres']
+                datetime = request.form['datetime']
+                title = request.form['title']
+                vote_average = request.form['vote_average']
+                # Ejecutar el query de creación de película en la base de datos
+                appNeo.createmovie(adult,genres,ids,language,company,datetime,title,vote_average)
+                      
+            elif request.form['submit'] == 'Crear Staff':
+                # Lógica para crear un miembro del staff en la base de datos
+                # Extraer los datos del formulario
+                nombres = request.form['nombres']
+                gender = request.form['gender']
+                ids = request.form['ids']
+                nationality = request.form['nationality']
+                rol = request.form['rol']
+                correo = request.form['correo']
+                # Ejecutar el query de creación de miembro del staff en la base de datos
+                appNeo.createstaff(nombres,gender,ids,nationality,rol,correo)
+                       
+            elif request.form['submit'] == 'Crear Actor':
+                # Lógica para crear un actor en la base de datos
+                # Extraer los datos del formulario
+                nombres = request.form['nombres']
+                profile = request.form['profile']
+                age = request.form['age']
+                gender = request.form['gender']
+                ids = request.form['ids']
+                # Ejecutar el query de creación de actor en la base de datos
+                appNeo.createactor(nombres,profile,age,gender,ids)
+                
         elif request.form['submit'] == 'Eliminar':
             # Lógica para realizar la eliminación en la base de datos
             pass

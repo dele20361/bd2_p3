@@ -31,6 +31,56 @@ class App:
         with self.driver.session(database="neo4j") as session:
             result = session.run(query, parameters)
 
+    #--- crear movie
+    def createmovie(self,adult,genres,ids,language,company,datetime,title,vote_average):
+        
+        query = """
+        CREATE (m:Movie {
+        adult: $adult,
+        genres: $genres,
+        ids: $ids,
+        language: $language,
+        company: $company,
+        datetime: $datetime,
+        title: $title,
+        vote_average: $vote_average
+        })
+        """
+        
+        with self.driver.session(database="neo4j") as session:
+            session.run(query, adult=adult, genres=genres, ids=ids, language=language, company=company,
+                    datetime=datetime, title=title, vote_average=vote_average)
+
+    #--- crear staff
+    def createstaff(self, nombres,gender,ids,nationality,rol,correo):
+        query = """
+        CREATE (s:Staff {
+        nombres: $nombres,
+        gender: $gender,
+        ids: $ids,
+        nationality: $nationality,
+        rol: $rol,
+        correo: $correo
+        })
+        """
+        with self.driver.session(database="neo4j") as session:
+            session.run(query, nombres=nombres, gender=gender, ids=ids, nationality=nationality, rol=rol, correo=correo)            
+    
+    #--- crear actor
+    def createactor(self, nombres,profile,age,gender,ids):
+        query = """
+        CREATE (a:Actor {
+        nombres: $nombres,
+        profile: $profile,
+        age: $age,
+        gender: $gender,
+        ids: $ids
+        })
+        """
+        with self.driver.session(database="neo4j") as session:
+            session.run(query, nombres=nombres, profile=profile, age=age, gender=gender, ids=ids)
+            
+    
     
     # ------------------------------------------------------ UPDATE -----------------------------------------
     
