@@ -72,7 +72,7 @@ def homepage():
     while len(myListContentTitles) < 5:
         myListContentTitles.append('...')
     if len(myListContentTitles) > 5:
-        myListContentTitles = myListContentTitles[:5]
+        myListContentTitles = myListContentTitles[-5:]
     
     # Obtener Recomendaciones del user
     myRecos = appNeo.find_Recommendation_by_user_property_return_movie('ID', userID)
@@ -80,7 +80,7 @@ def homepage():
     while len(myRecosTitles) < 5:
         myRecosTitles.append('...')
     if len(myRecosTitles) > 5:
-        myRecosTitles = myRecosTitles[:5]
+        myRecosTitles = myRecosTitles[-5:]
 
     # Obtener Favorites
     favoritesContent = appNeo.find_Favorites_by_user_property_return_movie('ID', userID)
@@ -88,7 +88,7 @@ def homepage():
     while len(favoritesTitles) < 5:
         favoritesTitles.append('...')
     if len(favoritesTitles) > 5:
-        favoritesTitles = favoritesTitles[:5]
+        favoritesTitles = favoritesTitles[-5:]
 
     # Obtener Watched
     watched = appNeo.find_Watched_by_user_property_return_movie('ID', userID)
@@ -96,7 +96,7 @@ def homepage():
     while len(watchedTitles) < 5:
         watchedTitles.append('...')
     if len(watchedTitles) > 5:
-        watchedTitles = watchedTitles[:5]
+        watchedTitles = watchedTitles[-5:]
 
     return render_template('homepage.html', titlesContent=titlesContent, myListContentTitles=myListContentTitles, myRecosTitles=myRecosTitles, favoritesTitles=favoritesTitles, watchedTitles=watchedTitles)
 
