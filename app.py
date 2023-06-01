@@ -64,6 +64,21 @@ def homepage():
         titlesContent.append('...')
     if len(titlesContent) > 20:
         titlesContent = titlesContent[:20]
+        
+@app.route('/agregarRelacion', methods=['POST'])
+def agregarRelacion():
+    # Obtener el ID de la película y el ID del usuario en sesión desde los datos enviados por POST
+    data = request.get_json()
+    destino = data['destino']
+    titlecontent = data['titlecontent']
+    usuario_id=userID
+
+    # Realiza alguna acción con los datos recibidos
+
+    appNeo.agregarRelacion(destino,usuario_id,titlecontent)
+    
+
+
 
     # Obtener My List del user
     myListContent = appNeo.find_mylist_by_user_property_return_movie('ID', userID)
