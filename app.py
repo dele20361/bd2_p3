@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from dateutil import parser
 from system import App
 
@@ -104,15 +104,16 @@ def homepage():
            
 @app.route('/agregarRelacion', methods=['POST'])
 def agregarRelacion():
-    # Obtener el ID de la película y el ID del usuario en sesión desde los datos enviados por POST
-    data = request.get_json()
-    relacion = request.form['relacion']
-    titlecontent = data['titlecontent']
-    usuario_id=userID
-    
-    # Realiza alguna acción con los datos recibidos
+   # Obtener los datos de la solicitud POST
+    relacion = request.form.get("relacion")
+    titlecontent = request.form.get("titulo")
 
-    appNeo.agregarRelacion(relacion,usuario_id,titlecontent)
+    usuario_id = userID
+    
+    # Realizar alguna acción con los datos recibidos
+
+    appNeo.agregarRelacion(relacion, usuario_id, titlecontent)
+    
 
 
 @app.route('/deleteMyFavorites', methods=['GET', 'POST'])
