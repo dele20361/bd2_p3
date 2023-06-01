@@ -758,6 +758,22 @@
                 document.body.appendChild(form);
                 form.submit();
             }
+
+            function agregarRelacion(relacion, titulo) {
+            // Crear un objeto FormData
+            var formData = new FormData();
+            
+            // Agregar los valores al FormData
+            formData.append('relacion', relacion);
+            formData.append('titulo', titulo);
+            
+            // Crear una solicitud AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/agregarRelacion');
+            
+            // Enviar el FormData como datos de la solicitud
+            xhr.send(formData);
+            }
             
 
           </script>

@@ -107,7 +107,6 @@ def agregarRelacion():
    # Obtener los datos de la solicitud POST
     relacion = request.form.get("relacion")
     titlecontent = request.form.get("titulo")
-
     usuario_id = userID
     
     # Realizar alguna acción con los datos recibidos
