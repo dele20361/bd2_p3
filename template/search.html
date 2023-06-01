@@ -42,14 +42,13 @@
             <h2> Buscar Pelicula </h2>
         </header>
 
-        <form action="/searchMovie" method="POST">
             <div class="container">
-                <form class="search">
-                    <input type="text", placeholder="Ingresar nombre de una pelicula", name="searchBar" id="searchBar">
+                <form class="search" action="/searchMovie" method="POST">
+                    <input type="text", placeholder="Ingresar query", name="searchBar">
                     <button class="icon-button">
                         <i class="fa fa-search" style="font-size:20px; color:white"></i>
                     </button>
-                </form> 
+                </form>
             </div>
             
             <div class="container">
@@ -60,9 +59,14 @@
                         </div>
                     </div>
                 </div>
-                
+                <div class="cardText" id="List1",  >
+                    <div class="content">
+                        <div class="title">
+                            <text>info</text>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </form>
 
         <script>
             const card = document.querySelector('.card');
