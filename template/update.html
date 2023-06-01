@@ -43,7 +43,7 @@
         </header>
 
         <div class = "fullscreen">
-            <h2> Ingresar datos </h2>
+            <h2> Actualizar Nodos </h2>
             <div class="container" >
                 <div class="label">
                     <input class="controls" type="text" name="adult" id="adult" placeholder="Ingrese el label del nodo">
@@ -105,6 +105,137 @@
                 </div>
             </div>
 
+            <h2> Actualizar Relacion </h2>
+            <div class="container2" >
+                <div class="content2">
+                    <div class="conteinerText">
+                        <text> Datos viejos </text>
+                    </div>
+                    <select class="controls" name="Nodo" id="nodo">
+                        <option value="none">-- Seleccione primer nodo -- </option>
+                        <option value="Movie">Movie</option>
+                        <option value="user">user</option>
+                        <option value="platform">platform</option>
+                        <option value="staff">staff</option>
+                        <option value="actor">actor</option>
+                    </select>
+
+                    <select class="controls" name="Nodo" id="nodo">
+                        <option value="none">-- Seleccione segundo nodo -- </option>
+                        <option value="Movie">Movie</option>
+                        <option value="user">user</option>
+                        <option value="platform">platform</option>
+                        <option value="staff">staff</option>
+                        <option value="actor">actor</option>
+                    </select>
+
+                    <select class="controls" name="property" id="property">
+                        <option value="none">-- Seleccione una propiedad-- </option>
+                        <option value="adult">adult</option>
+                        <option value="genres">genres</option>
+                        <option value="id">id</option>
+                        <option value="original_language">original_language</option>
+                        <option value="production_companies">production_companies</option>
+                        <option value="release_date">release_date</option>
+                        <option value="title">title</option>
+                        <option value="vote_average">vote_average</option>
+                        <option value="Age">Age</option>
+                        <option value="Gender">Gender</option>
+                        <option value="Name">Name</option>
+                        <option value="Profile Path">Profile Path</option>
+                        <option value="ID">ID</option>
+                        <option value="Email">Email</option>
+                        <option value="Nationality">Nationality</option>
+                        <option value="Rol">Rol</option>
+                        <option value="Country">Country</option>
+                        <option value="Country">Label</option>
+                      </select>
+
+                      <select class="controls" name="property" id="property">
+                        <option value="none">-- Seleccione una propiedad-- </option>
+                        <option value="adult">adult</option>
+                        <option value="genres">genres</option>
+                        <option value="id">id</option>
+                        <option value="original_language">original_language</option>
+                        <option value="production_companies">production_companies</option>
+                        <option value="release_date">release_date</option>
+                        <option value="title">title</option>
+                        <option value="vote_average">vote_average</option>
+                        <option value="Age">Age</option>
+                        <option value="Gender">Gender</option>
+                        <option value="Name">Name</option>
+                        <option value="Profile Path">Profile Path</option>
+                        <option value="ID">ID</option>
+                        <option value="Email">Email</option>
+                        <option value="Nationality">Nationality</option>
+                        <option value="Rol">Rol</option>
+                        <option value="Country">Country</option>
+                        <option value="Country">Label</option>
+                      </select>
+
+                    <input class="controls" type="text" name="value" id="value" placeholder="Ingrese valor">
+                    <input class="controls" type="text" name="value" id="value" placeholder="Ingrese valor">
+                </div>
+                <div class="content3">
+                    <text> Nuevos datos </text>
+                    <select class="controls" name="Nodo" id="nodo">
+                        <option value="none">-- Seleccione una relacion -- </option>
+                        <option value="Directed">Directed</option>
+                        <option value="Worked_In">Worked_In</option>
+                        <option value="Acted_In">Acted_In</option>
+                        <option value="Available_In">Available_In</option>
+                        <option value="Subscribed">Subscribed</option>
+                        <option value="Favorites">Favorites</option>
+                        <option value="MyList">MyList</option>
+                        <option value="Ratings">Ratings</option>
+                        <option value="Watched">Watched</option>
+                        <option value="Recommendation">Recommendation</option>
+                    </select>
+
+                    <select class="controls" name="property" id="property">
+                        <option value="none">-- Seleccione una propiedad --</option>
+                        <option value="genres">genres</option>
+                        <option value="popularity">popularity</option>
+                        <option value="predicted_rating">predicted_rating</option>
+                       
+                        <option value="timestamp">timestamp</option>
+                        <option value="finished">finished</option>
+                        <option value="time_interval">time_interval</option>
+                        
+                        <option value="rating">rating</option>
+                        <option value="platform">platform</option>
+
+                        <option value="order">order</option>
+                        <option value="date_added">date_added</option>
+
+                        <option value="in_top_10">in_top_10</option>
+
+                        <option value="plan">plan</option>
+                        <option value="email">email</option>
+                        <option value="contra">contra</option>
+
+                        <option value="languages">languages</option>
+                        <option value="regions">regions</option>
+                        <option value="avg_views_per_month">avg_views_per_month</option>
+                        
+                        <option value="character">character</option>
+                        <option value="salary">salary</option>
+                        <option value="voice_interpreter">voice_interpreter</option>
+                        
+                        <option value="department">department</option>
+                        <option value="job">job</option>
+
+                        <option value="populaawardsrity">populaawardsrity</option>
+                        <option value="is_producer">is_producer</option>
+                      </select>
+                    <input class="controls" type="text" name="value" id="value" placeholder="Ingrese valor">
+                </div>
+
+                <div class="Conteiner_btn">
+                    <input class="botons" type="submit" value="Actualizar">
+                </div>
+            </div>
+        </div>
     <script>
         var logoOut = document.getElementById("out");
             logoOut.onclick = function() {
