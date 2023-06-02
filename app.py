@@ -365,6 +365,38 @@ def update():
 
 @app.route('/editPlatform', methods=['GET', 'POST'])
 def editPlatform():
+    if request.method == 'POST':
+        if request.form['submit'] == 'Crear':
+            pass
+        elif request.form['submit'] == 'Eliminar':
+            ids = request.form['ids']
+            name = request.form['name']
+            available_in = request.form['available_in']
+            founder = request.form['founder']
+            image_link = request.form['image_link']
+            profit = request.form['profit']
+
+            toEval = {'id': ids, 'name': name, 'available_in': available_in, 'founder': founder, 'image_link': image_link, 'profit': profit}
+
+            # Obtener propiedades que tengan contenido
+            non_empty_properties = {key: value for key, value in toEval.items() if value}
+            non_empty_dict = {key: non_empty_properties[key] for key in non_empty_properties}
+
+            # Cast al tipo de dato correcto
+            keys = non_empty_dict.keys()
+            if 'id' in keys:
+                non_empty_dict['id'] = int(non_empty_dict['id'])
+
+            print(non_empty_dict)
+
+            if len(keys) > 0:
+                appNeo.delete_platform_by_properties(non_empty_dict)
+            else:
+                print('VACIO')
+
+        elif request.form['submit'] == 'Actualizar':
+            pass
+
     return render_template('editPlatform.html')
 
 if __name__ == '__main__':
