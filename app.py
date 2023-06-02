@@ -104,14 +104,16 @@ def homepage():
            
 @app.route('/agregarRelacion', methods=['POST'])
 def agregarRelacion():
-   # Obtener los datos de la solicitud POST
-    relacion = request.form.get("relacion")
-    titlecontent = request.form.get("titulo")
-    usuario_id = userID
-    
-    # Realizar alguna acción con los datos recibidos
+    if request.method == 'POST':
+    # Obtener los datos de la solicitud POST
+        relacion = request.form.get("relacion")
+        titlecontent = request.form.get("titulo")
+        usuario_id = userID
+        
+        # Realizar alguna acción con los datos recibidos
 
-    appNeo.agregarRelacion(relacion, usuario_id, titlecontent)
+        appNeo.agregarRelacion(relacion, usuario_id, titlecontent)
+        return redirect(url_for('homepage'))
     
 
 
