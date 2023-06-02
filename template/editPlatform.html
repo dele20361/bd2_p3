@@ -11,8 +11,7 @@
         </header>
 
         <div class = "fullscreen">
-            <form action="/editPlatform" method="POST">
-                <h2> Editar plataforma </h2>
+            <form method="POST">
                 <div class="container" >
                     <div class="content">
                         <input class="controls" type="number" name="ids" id="ids" placeholder="Ingrese un numero">
@@ -26,11 +25,11 @@
                     <div class="Conteiner_btn">
                         <input class="botons" name='submit' type="submit" value="Crear">
                         <input class="botons" name='submit' type="submit" value="Eliminar">
-                        <input class="botons" name='submit' type="submit" value="Cancelar" id="salir" onclick="redirectToplatform()">
+                        <input class="botons" name='submit' type="submit" value="Cancelar" id="salir">
                     </div>
                 </div>
 
-                <h2> Ingresar valores </h2>
+                <h2> Actualizar </h2>
                 <div class="container2" >
                     <div class="content2">
                         <text> Datos viejos </text>
@@ -67,7 +66,8 @@
             </form>
             <script>
                 function redirectToplatform() {
-                    window.location.href = "{{ url_for('platfomr') }}";
+                    window.location.href = "{{ url_for('platformr') }}";
+
                 }
             </script>
 
