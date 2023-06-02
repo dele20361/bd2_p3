@@ -179,3 +179,10 @@ text{
   top: 0;
   right: 0;
 }
+
+.card button{
+  border: none;
+  opacity: 0.6;
+  background: white;
+  cursor: pointer;
+}
